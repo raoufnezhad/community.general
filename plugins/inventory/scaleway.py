@@ -3,9 +3,8 @@
 # GNU General Public License v3.0+ (see LICENSES/GPL-3.0-or-later.txt or https://www.gnu.org/licenses/gpl-3.0.txt)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from __future__ import (absolute_import, division, print_function)
+from __future__ import annotations
 
-__metaclass__ = type
 
 DOCUMENTATION = r'''
     name: scaleway
@@ -77,6 +76,7 @@ EXAMPLES = r'''
 # scaleway_inventory.yml file in YAML format
 # Example command line: ansible-inventory --list -i scaleway_inventory.yml
 
+---
 # use hostname as inventory_hostname
 # use the private IP address to connect to the host
 plugin: community.general.scaleway
@@ -91,6 +91,7 @@ variables:
   ansible_host: private_ip
   state: state
 
+---
 # use hostname as inventory_hostname and public IP address to connect to the host
 plugin: community.general.scaleway
 hostnames:
@@ -100,6 +101,7 @@ regions:
 variables:
   ansible_host: public_ip.address
 
+---
 # Using static strings as variables
 plugin: community.general.scaleway
 hostnames:
@@ -125,7 +127,7 @@ from ansible.plugins.inventory import BaseInventoryPlugin, Constructable
 from ansible_collections.community.general.plugins.module_utils.scaleway import SCALEWAY_LOCATION, parse_pagination_link
 from ansible_collections.community.general.plugins.plugin_utils.unsafe import make_unsafe
 from ansible.module_utils.urls import open_url
-from ansible.module_utils.common.text.converters import to_native, to_text
+from ansible.module_utils.common.text.converters import to_text
 from ansible.module_utils.six import raise_from
 
 import ansible.module_utils.six.moves.urllib.parse as urllib_parse
@@ -140,7 +142,7 @@ def _fetch_information(token, url):
                                 headers={'X-Auth-Token': token,
                                          'Content-type': 'application/json'})
         except Exception as e:
-            raise AnsibleError(f"Error while fetching {url}: {to_native(e)}")
+            raise AnsibleError(f"Error while fetching {url}: {e}")
         try:
             raw_json = json.loads(to_text(response.read()))
         except ValueError:

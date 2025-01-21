@@ -7,33 +7,32 @@
 # GNU General Public License v3.0+ (see LICENSES/GPL-3.0-or-later.txt or https://www.gnu.org/licenses/gpl-3.0.txt)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from __future__ import (absolute_import, division, print_function)
-__metaclass__ = type
+from __future__ import annotations
 
-DOCUMENTATION = '''
-    author: Ansible Core Team
-    name: jail
-    short_description: Run tasks in jails
+DOCUMENTATION = r"""
+author: Ansible Core Team
+name: jail
+short_description: Run tasks in jails
+description:
+  - Run commands or put/fetch files to an existing jail.
+options:
+  remote_addr:
     description:
-        - Run commands or put/fetch files to an existing jail
-    options:
-      remote_addr:
-        description:
-            - Path to the jail
-        type: string
-        default: inventory_hostname
-        vars:
-            - name: inventory_hostname
-            - name: ansible_host
-            - name: ansible_jail_host
-      remote_user:
-        description:
-            - User to execute as inside the jail
-        type: string
-        vars:
-            - name: ansible_user
-            - name: ansible_jail_user
-'''
+      - Path to the jail.
+    type: string
+    default: inventory_hostname
+    vars:
+      - name: inventory_hostname
+      - name: ansible_host
+      - name: ansible_jail_host
+  remote_user:
+    description:
+      - User to execute as inside the jail.
+    type: string
+    vars:
+      - name: ansible_user
+      - name: ansible_jail_user
+"""
 
 import os
 import os.path
@@ -144,7 +143,7 @@ class Connection(ConnectionBase):
             exist in any given chroot.  So for now we're choosing "/" instead.
             This also happens to be the former default.
 
-            Can revisit using $HOME instead if it's a problem
+            Can revisit using $HOME instead if it is a problem
         """
         if not remote_path.startswith(os.path.sep):
             remote_path = os.path.join(os.path.sep, remote_path)

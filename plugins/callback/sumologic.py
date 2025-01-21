@@ -3,10 +3,9 @@
 # GNU General Public License v3.0+ (see LICENSES/GPL-3.0-or-later.txt or https://www.gnu.org/licenses/gpl-3.0.txt)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from __future__ import (absolute_import, division, print_function)
-__metaclass__ = type
+from __future__ import annotations
 
-DOCUMENTATION = r'''
+DOCUMENTATION = r"""
 name: sumologic
 type: notification
 short_description: Sends task result events to Sumologic
@@ -15,8 +14,8 @@ description:
   - This callback plugin will send task results as JSON formatted events to a Sumologic HTTP collector source.
 requirements:
   - Whitelisting this callback plugin
-  - 'Create a HTTP collector source in Sumologic and specify a custom timestamp format of V(yyyy-MM-dd HH:mm:ss ZZZZ) and a custom timestamp locator
-    of V("timestamp": "(.*\)")'
+  - 'Create a HTTP collector source in Sumologic and specify a custom timestamp format of V(yyyy-MM-dd HH:mm:ss ZZZZ) and
+    a custom timestamp locator of V("timestamp": "(.*\)")'
 options:
   url:
     description: URL to the Sumologic HTTP collector source.
@@ -26,10 +25,10 @@ options:
     ini:
       - section: callback_sumologic
         key: url
-'''
+"""
 
-EXAMPLES = '''
-examples: |
+EXAMPLES = r"""
+examples: |-
   To enable, add this to your ansible.cfg file in the defaults block
     [defaults]
     callback_whitelist = community.general.sumologic
@@ -40,7 +39,7 @@ examples: |
   Set the ansible.cfg variable in the callback_sumologic block
     [callback_sumologic]
     url = https://endpoint1.collection.us2.sumologic.com/receiver/v1/http/R8moSv1d8EW9LAUFZJ6dbxCFxwLH6kfCdcBfddlfxCbLuL-BN5twcTpMk__pYy_cDmp==
-'''
+"""
 
 import json
 import uuid

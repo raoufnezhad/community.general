@@ -35,8 +35,8 @@ options:
     type: str
   timeout:
     description:
-      - If there are pending actions for the service monitored by monit, then Ansible will check for up to this many seconds to verify the requested
-        action has been performed. Ansible will sleep for five seconds between each check.
+      - If there are pending actions for the service monitored by monit, then Ansible will check for up to this many seconds
+        to verify the requested action has been performed. Ansible will sleep for five seconds between each check.
     default: 300
     type: int
 author:
@@ -216,7 +216,7 @@ class Monit(object):
         return running_status
 
     def wait_for_monit_to_stop_pending(self, current_status=None):
-        """Fails this run if there is no status or it's pending/initializing for timeout"""
+        """Fails this run if there is no status or it is pending/initializing for timeout"""
         timeout_time = time.time() + self.timeout
 
         if not current_status:

@@ -16,6 +16,9 @@ description:
   - An Ansible module to modify servers in CenturyLink Cloud.
 extends_documentation_fragment:
   - community.general.attributes
+  - community.general.clc
+author:
+  - "CLC Runner (@clc-runner)"
 attributes:
   check_mode:
     support: full
@@ -24,7 +27,7 @@ attributes:
 options:
   server_ids:
     description:
-      - A list of server Ids to modify.
+      - A list of server IDs to modify.
     type: list
     required: true
     elements: str
@@ -38,7 +41,7 @@ options:
     type: str
   anti_affinity_policy_id:
     description:
-      - The anti affinity policy id to be set for a hyper scale server. This is mutually exclusive with O(anti_affinity_policy_name).
+      - The anti affinity policy ID to be set for a hyper scale server. This is mutually exclusive with O(anti_affinity_policy_name).
     type: str
   anti_affinity_policy_name:
     description:
@@ -46,7 +49,7 @@ options:
     type: str
   alert_policy_id:
     description:
-      - The alert policy id to be associated to the server. This is mutually exclusive with O(alert_policy_name).
+      - The alert policy ID to be associated to the server. This is mutually exclusive with O(alert_policy_name).
     type: str
   alert_policy_name:
     description:
@@ -63,19 +66,6 @@ options:
       - Whether to wait for the provisioning tasks to finish before returning.
     type: bool
     default: true
-requirements:
-  - requests >= 2.5.0
-  - clc-sdk
-author: "CLC Runner (@clc-runner)"
-notes:
-  - To use this module, it is required to set the below environment variables which enables access to the Centurylink Cloud.
-  - E(CLC_V2_API_USERNAME), the account login id for the Centurylink Cloud.
-  - E(CLC_V2_API_PASSWORD), the account password for the Centurylink Cloud.
-  - Alternatively, the module accepts the API token and account alias. The API token can be generated using the CLC account
-    login and password using the HTTP API call @ https://api.ctl.io/v2/authentication/login
-  - E(CLC_V2_API_TOKEN), the API token generated from https://api.ctl.io/v2/authentication/login
-  - E(CLC_ACCT_ALIAS), the account alias associated with the Centurylink Cloud.
-  - Users can set E(CLC_V2_API_URL) to specify an endpoint for pointing to a different CLC environment.
 """
 
 EXAMPLES = r"""
@@ -141,7 +131,7 @@ EXAMPLES = r"""
 
 RETURN = r"""
 server_ids:
-  description: The list of server ids that are changed.
+  description: The list of server IDs that are changed.
   returned: success
   type: list
   sample: ["UC1TEST-SVR01", "UC1TEST-SVR02"]

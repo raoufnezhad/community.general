@@ -14,6 +14,10 @@ module: sensu_subscription
 short_description: Manage Sensu subscriptions
 description:
   - Manage which I(sensu channels) a machine should subscribe to.
+deprecated:
+  removed_in: 13.0.0
+  why: Sensu Core and Sensu Enterprise products have been End of Life since 2019/20.
+  alternative: Use Sensu Go and its accompanying collection C(sensu.sensu_go).
 extends_documentation_fragment:
   - community.general.attributes
 attributes:
@@ -37,13 +41,13 @@ options:
   path:
     type: str
     description:
-      - Path to the subscriptions json file.
+      - Path to the subscriptions JSON file.
     required: false
     default: /etc/sensu/conf.d/subscriptions.json
   backup:
     description:
-      - Create a backup file (if yes), including the timestamp information so you
-        can get the original file back if you somehow clobbered it incorrectly.
+      - Create a backup file (if yes), including the timestamp information so you can get the original file back if you somehow
+        clobbered it incorrectly.
     type: bool
     required: false
     default: false

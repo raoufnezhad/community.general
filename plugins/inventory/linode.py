@@ -3,8 +3,7 @@
 # GNU General Public License v3.0+ (see LICENSES/GPL-3.0-or-later.txt or https://www.gnu.org/licenses/gpl-3.0.txt)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from __future__ import (absolute_import, division, print_function)
-__metaclass__ = type
+from __future__ import annotations
 
 DOCUMENTATION = r'''
     name: linode
@@ -79,15 +78,18 @@ DOCUMENTATION = r'''
 '''
 
 EXAMPLES = r'''
+---
 # Minimal example. `LINODE_ACCESS_TOKEN` is exposed in environment.
 plugin: community.general.linode
 
+---
 # You can use Jinja to template the access token.
 plugin: community.general.linode
 access_token: "{{ lookup('ini', 'token', section='your_username', file='~/.config/linode-cli') }}"
 # For older Ansible versions, you need to write this as:
 # access_token: "{{ lookup('ini', 'token section=your_username file=~/.config/linode-cli') }}"
 
+---
 # Example with regions, types, groups and access token
 plugin: community.general.linode
 access_token: foobar
@@ -96,6 +98,7 @@ regions:
 types:
   - g5-standard-2
 
+---
 # Example with keyed_groups, groups, and compose
 plugin: community.general.linode
 access_token: foobar
@@ -114,6 +117,7 @@ compose:
   ansible_ssh_host: ipv4[0]
   ansible_port: 2222
 
+---
 # Example where control traffic limited to internal network
 plugin: community.general.linode
 access_token: foobar

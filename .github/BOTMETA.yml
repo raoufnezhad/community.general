@@ -111,6 +111,9 @@ files:
   $connections/lxd.py:
     labels: lxd
     maintainers: mattclay
+  $connections/proxmox_pct_remote.py:
+    labels: proxmox
+    maintainers: mietzen
   $connections/qubes.py:
     maintainers: kushaldas
   $connections/saltstack.py:
@@ -120,6 +123,8 @@ files:
     maintainers: $team_ansible_core
   $doc_fragments/:
     labels: docs_fragments
+  $doc_fragments/clc.py:
+    maintainers: clc-runner russoz
   $doc_fragments/django.py:
     maintainers: russoz
   $doc_fragments/hpe3par.py:
@@ -456,7 +461,7 @@ files:
   $modules/bearychat.py:
     maintainers: tonyseek
   $modules/bigpanda.py:
-    maintainers: hkariti
+    ignore: hkariti
   $modules/bitbucket_:
     maintainers: catcombo
   $modules/bootc_manage.py:
@@ -856,6 +861,8 @@ files:
     maintainers: drybjed jtyr noles
   $modules/ldap_entry.py:
     maintainers: jtyr
+  $modules/ldap_inc.py:
+    maintainers: pduveau
   $modules/ldap_passwd.py:
     maintainers: KellerFuchs jtyr
   $modules/ldap_search.py:
@@ -1343,6 +1350,10 @@ files:
     maintainers: precurse
   $modules/sysrc.py:
     maintainers: dlundgren
+  $modules/systemd_creds_decrypt.py:
+    maintainers: konstruktoid
+  $modules/systemd_creds_encrypt.py:
+    maintainers: konstruktoid
   $modules/sysupgrade.py:
     maintainers: precurse
   $modules/taiga_issue.py:
@@ -1374,16 +1385,19 @@ files:
     keywords: sophos utm
     maintainers: $team_e_spirit
   $modules/utm_ca_host_key_cert.py:
-    maintainers: stearz
+    ignore: stearz
+    maintainers: $team_e_spirit
   $modules/utm_ca_host_key_cert_info.py:
-    maintainers: stearz
+    ignore: stearz
+    maintainers: $team_e_spirit
   $modules/utm_network_interface_address.py:
     maintainers: steamx
   $modules/utm_network_interface_address_info.py:
     maintainers: steamx
   $modules/utm_proxy_auth_profile.py:
     keywords: sophos utm
-    maintainers: $team_e_spirit stearz
+    ignore: stearz
+    maintainers: $team_e_spirit
   $modules/utm_proxy_exception.py:
     keywords: sophos utm
     maintainers: $team_e_spirit RickS-C137

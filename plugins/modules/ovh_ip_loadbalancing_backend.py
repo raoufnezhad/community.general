@@ -16,10 +16,10 @@ description:
   - Manage OVH (French European hosting provider) LoadBalancing IP backends.
 author: Pascal Heraud (@pascalheraud)
 notes:
-  - Uses the python OVH Api U(https://github.com/ovh/python-ovh). You have to create an application (a key and secret) with a consumer key as
-    described into U(https://docs.ovh.com/gb/en/customer/first-steps-with-ovh-api/).
+  - Uses the Python OVH API U(https://github.com/ovh/python-ovh). You have to create an application (a key and secret) with
+    a consumer key as described into U(https://docs.ovh.com/gb/en/customer/first-steps-with-ovh-api/).
 requirements:
-  - ovh >  0.3.5
+  - ovh > 0.3.5
 extends_documentation_fragment:
   - community.general.attributes
 attributes:
@@ -31,7 +31,7 @@ options:
   name:
     required: true
     description:
-      - Name of the LoadBalancing internal name (ip-X.X.X.X).
+      - Name of the LoadBalancing internal name (V(ip-X.X.X.X)).
     type: str
   backend:
     required: true
@@ -58,7 +58,7 @@ options:
   endpoint:
     required: true
     description:
-      - The endpoint to use ( for instance ovh-eu).
+      - The endpoint to use (for instance V(ovh-eu)).
     type: str
   application_key:
     required: true

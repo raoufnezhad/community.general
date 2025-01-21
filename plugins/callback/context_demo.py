@@ -4,20 +4,19 @@
 # GNU General Public License v3.0+ (see LICENSES/GPL-3.0-or-later.txt or https://www.gnu.org/licenses/gpl-3.0.txt)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from __future__ import (absolute_import, division, print_function)
-__metaclass__ = type
+from __future__ import annotations
 
-DOCUMENTATION = '''
-    author: Unknown (!UNKNOWN)
-    name: context_demo
-    type: aggregate
-    short_description: demo callback that adds play/task context
-    description:
-      - Displays some play and task context along with normal output.
-      - This is mostly for demo purposes.
-    requirements:
-      - whitelist in configuration
-'''
+DOCUMENTATION = r"""
+author: Unknown (!UNKNOWN)
+name: context_demo
+type: aggregate
+short_description: demo callback that adds play/task context
+description:
+  - Displays some play and task context along with normal output.
+  - This is mostly for demo purposes.
+requirements:
+  - whitelist in configuration
+"""
 
 from ansible.plugins.callback import CallbackBase
 

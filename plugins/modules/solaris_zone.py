@@ -34,7 +34,7 @@ options:
       - V(started), synonym for V(running).
       - V(stopped), shutdown a zone.
       - V(absent), destroy the zone.
-      - V(configured), configure the ready so that it's to be attached.
+      - V(configured), configure the ready so that it is to be attached.
       - V(attached), attach a zone, but do not boot it.
       - V(detached), shutdown and detach a zone.
     type: str
@@ -64,8 +64,9 @@ options:
     type: str
   config:
     description:
-      - The C(zonecfg) configuration commands for this zone. See zonecfg(1M) for the valid options and syntax. Typically this is a list of options
-        separated by semi-colons or new lines, for example V(set auto-boot=true;add net;set physical=bge0;set address=10.1.1.1;end).
+      - The C(zonecfg) configuration commands for this zone. See zonecfg(1M) for the valid options and syntax. Typically this
+        is a list of options separated by semi-colons or new lines, for example V(set auto-boot=true;add net;set physical=bge0;set
+        address=10.1.1.1;end).
     type: str
     default: ''
   create_options:
@@ -75,14 +76,14 @@ options:
     default: ''
   install_options:
     description:
-      - Extra options to the zoneadm(1M) install command. To automate Solaris 11 zone creation, use this to specify the profile XML file, for example
-        O(install_options=-c sc_profile.xml).
+      - Extra options to the zoneadm(1M) install command. To automate Solaris 11 zone creation, use this to specify the profile
+        XML file, for example O(install_options=-c sc_profile.xml).
     type: str
     default: ''
   attach_options:
     description:
-      - Extra options to the zoneadm attach command. For example, this can be used to specify whether a minimum or full update of packages is
-        required and if any packages need to be deleted. For valid values, see zoneadm(1M).
+      - Extra options to the zoneadm attach command. For example, this can be used to specify whether a minimum or full update
+        of packages is required and if any packages need to be deleted. For valid values, see zoneadm(1M).
     type: str
     default: ''
   timeout:

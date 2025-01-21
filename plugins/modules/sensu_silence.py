@@ -14,7 +14,11 @@ module: sensu_silence
 author: Steven Bambling (@smbambling)
 short_description: Manage Sensu silence entries
 description:
-  - Create and clear (delete) a silence entries via the Sensu API for subscriptions and checks.
+  - Create and clear (delete) a silence entries using the Sensu API for subscriptions and checks.
+deprecated:
+  removed_in: 13.0.0
+  why: Sensu Core and Sensu Enterprise products have been End of Life since 2019/20.
+  alternative: Use Sensu Go and its accompanying collection C(sensu.sensu_go).
 extends_documentation_fragment:
   - community.general.attributes
 attributes:
@@ -42,11 +46,12 @@ options:
   reason:
     type: str
     description:
-      - If specified, this free-form string is used to provide context or rationale for the reason this silence entry was created.
+      - If specified, this free-form string is used to provide context or rationale for the reason this silence entry was
+        created.
   state:
     type: str
     description:
-      - Specifies to create or clear (delete) a silence entry via the Sensu API.
+      - Specifies to create or clear (delete) a silence entry using the Sensu API.
     default: present
     choices: ['present', 'absent']
   subscription:

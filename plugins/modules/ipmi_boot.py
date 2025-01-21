@@ -24,7 +24,7 @@ attributes:
 options:
   name:
     description:
-      - Hostname or ip address of the BMC.
+      - Hostname or IP address of the BMC.
     required: true
     type: str
   port:
@@ -50,15 +50,15 @@ options:
     version_added: 4.1.0
   bootdev:
     description:
-      - Set boot device to use on next reboot
-      - "The choices for the device are:"
-      - V(network) -- Request network boot
-      - V(floppy) -- Boot from floppy
-      - V(hd) -- Boot from hard drive
-      - "V(safe) -- Boot from hard drive, requesting 'safe mode'"
-      - V(optical) -- boot from CD/DVD/BD drive
-      - V(setup) -- Boot into setup utility
-      - V(default) -- remove any IPMI directed boot device request
+      - Set boot device to use on next reboot.
+      - 'The choices for the device are:'
+      - V(network) -- Request network boot.
+      - V(floppy) -- Boot from floppy.
+      - V(hd) -- Boot from hard drive.
+      - V(safe) -- Boot from hard drive, requesting 'safe mode'.
+      - V(optical) -- boot from CD/DVD/BD drive.
+      - V(setup) -- Boot into setup utility.
+      - V(default) -- remove any IPMI directed boot device request.
     required: true
     choices:
       - network

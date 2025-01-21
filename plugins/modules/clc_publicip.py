@@ -16,6 +16,9 @@ description:
   - An Ansible module to add or delete public IP addresses on an existing server or servers in CenturyLink Cloud.
 extends_documentation_fragment:
   - community.general.attributes
+  - community.general.clc
+author:
+  - "CLC Runner (@clc-runner)"
 attributes:
   check_mode:
     support: full
@@ -35,13 +38,13 @@ options:
     elements: int
   server_ids:
     description:
-      - A list of servers to create public ips on.
+      - A list of servers to create public IPs on.
     type: list
     required: true
     elements: str
   state:
     description:
-      - Determine whether to create or delete public IPs. If V(present) module will not create a second public ip if one already
+      - Determine whether to create or delete public IPs. If V(present) module will not create a second public IP if one already
         exists.
     type: str
     default: present
@@ -51,19 +54,6 @@ options:
       - Whether to wait for the tasks to finish before returning.
     type: bool
     default: true
-requirements:
-  - requests >= 2.5.0
-  - clc-sdk
-author: "CLC Runner (@clc-runner)"
-notes:
-  - To use this module, it is required to set the below environment variables which enables access to the Centurylink Cloud.
-  - E(CLC_V2_API_USERNAME), the account login id for the Centurylink Cloud.
-  - E(CLC_V2_API_PASSWORD), the account password for the Centurylink Cloud.
-  - Alternatively, the module accepts the API token and account alias. The API token can be generated using the CLC account
-    login and password using the HTTP API call @ https://api.ctl.io/v2/authentication/login
-  - E(CLC_V2_API_TOKEN), the API token generated from https://api.ctl.io/v2/authentication/login
-  - E(CLC_ACCT_ALIAS), the account alias associated with the Centurylink Cloud.
-  - Users can set E(CLC_V2_API_URL) to specify an endpoint for pointing to a different CLC environment.
 """
 
 EXAMPLES = r"""
@@ -109,7 +99,7 @@ EXAMPLES = r"""
 
 RETURN = r"""
 server_ids:
-  description: The list of server ids that are changed.
+  description: The list of server IDs that are changed.
   returned: success
   type: list
   sample: ["UC1TEST-SVR01", "UC1TEST-SVR02"]

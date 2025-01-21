@@ -3,8 +3,7 @@
 # GNU General Public License v3.0+ (see LICENSES/GPL-3.0-or-later.txt or https://www.gnu.org/licenses/gpl-3.0.txt)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from __future__ import (absolute_import, division, print_function)
-__metaclass__ = type
+from __future__ import annotations
 
 DOCUMENTATION = '''
     author: Unknown (!UNKNOWN)
@@ -56,15 +55,16 @@ DOCUMENTATION = '''
 '''
 
 EXAMPLES = '''
+---
 # file must be named vbox.yaml or vbox.yml
-simple_config_file:
-    plugin: community.general.virtualbox
-    settings_password_file: /etc/virtulbox/secrets
-    query:
-      logged_in_users: /VirtualBox/GuestInfo/OS/LoggedInUsersList
-    compose:
-      ansible_connection: ('indows' in vbox_Guest_OS)|ternary('winrm', 'ssh')
+plugin: community.general.virtualbox
+settings_password_file: /etc/virtualbox/secrets
+query:
+  logged_in_users: /VirtualBox/GuestInfo/OS/LoggedInUsersList
+compose:
+  ansible_connection: ('indows' in vbox_Guest_OS)|ternary('winrm', 'ssh')
 
+---
 # add hosts (all match with minishift vm) to the group container if any of the vms are in ansible_inventory'
 plugin: community.general.virtualbox
 groups:
@@ -76,7 +76,7 @@ import os
 from subprocess import Popen, PIPE
 
 from ansible.errors import AnsibleParserError
-from ansible.module_utils.common.text.converters import to_bytes, to_native, to_text
+from ansible.module_utils.common.text.converters import to_bytes, to_text
 from ansible.module_utils.common._collections_compat import MutableMapping
 from ansible.plugins.inventory import BaseInventoryPlugin, Constructable, Cacheable
 from ansible.module_utils.common.process import get_bin_path
@@ -257,7 +257,7 @@ class InventoryModule(BaseInventoryPlugin, Constructable, Cacheable):
     def _handle_vboxmanage_group_string(self, vboxmanage_group, current_host, cacheable_results):
         '''Handles parsing the VM's Group assignment from VBoxManage according to VirtualBox documentation.'''
         # Per the VirtualBox documentation, a VM can be part of many groups,
-        # and it's possible to have nested groups.
+        # and it is possible to have nested groups.
         # Many groups are separated by commas ",", and nested groups use
         # slash "/".
         # https://www.virtualbox.org/manual/UserManual.html#gui-vmgroups
@@ -352,7 +352,7 @@ class InventoryModule(BaseInventoryPlugin, Constructable, Cacheable):
             try:
                 p = Popen(cmd, stdout=PIPE)
             except Exception as e:
-                raise AnsibleParserError(to_native(e))
+                raise AnsibleParserError(str(e))
 
             source_data = p.stdout.read().splitlines()
 

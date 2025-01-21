@@ -3,8 +3,7 @@
 # GNU General Public License v3.0+ (see LICENSES/GPL-3.0-or-later.txt or https://www.gnu.org/licenses/gpl-3.0.txt)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from __future__ import (absolute_import, division, print_function)
-__metaclass__ = type
+from __future__ import annotations
 
 DOCUMENTATION = r'''
     name: lxd
@@ -108,15 +107,18 @@ DOCUMENTATION = r'''
 '''
 
 EXAMPLES = '''
+---
 # simple lxd.yml
 plugin: community.general.lxd
 url: unix:/var/snap/lxd/common/lxd/unix.socket
 
+---
 # simple lxd.yml including filter
 plugin: community.general.lxd
 url: unix:/var/snap/lxd/common/lxd/unix.socket
 state: RUNNING
 
+---
 # simple lxd.yml including virtual machines and containers
 plugin: community.general.lxd
 url: unix:/var/snap/lxd/common/lxd/unix.socket
@@ -211,7 +213,7 @@ class InventoryModule(BaseInventoryPlugin):
             with open(path, 'r') as json_file:
                 return json.load(json_file)
         except (IOError, json.decoder.JSONDecodeError) as err:
-            raise AnsibleParserError(f'Could not load the test data from {to_native(path)}: {to_native(err)}')
+            raise AnsibleParserError(f'Could not load the test data from {to_native(path)}: {err}')
 
     def save_json_data(self, path, file_name=None):
         """save data as json
@@ -241,7 +243,7 @@ class InventoryModule(BaseInventoryPlugin):
             with open(os.path.abspath(os.path.join(cwd, *path)), 'w') as json_file:
                 json.dump(self.data, json_file)
         except IOError as err:
-            raise AnsibleParserError(f'Could not save data: {to_native(err)}')
+            raise AnsibleParserError(f'Could not save data: {err}')
 
     def verify_file(self, path):
         """Check the config
@@ -281,7 +283,7 @@ class InventoryModule(BaseInventoryPlugin):
         if not isinstance(url, str):
             return False
         if not url.startswith(('unix:', 'https:')):
-            raise AnsibleError(f'URL is malformed: {to_native(url)}')
+            raise AnsibleError(f'URL is malformed: {url}')
         return True
 
     def _connect_to_socket(self):
@@ -306,7 +308,7 @@ class InventoryModule(BaseInventoryPlugin):
                 return socket_connection
             except LXDClientException as err:
                 error_storage[url] = err
-        raise AnsibleError(f'No connection to the socket: {to_native(error_storage)}')
+        raise AnsibleError(f'No connection to the socket: {error_storage}')
 
     def _get_networks(self):
         """Get Networknames
@@ -579,7 +581,7 @@ class InventoryModule(BaseInventoryPlugin):
             else:
                 path[instance_name][key] = value
         except KeyError as err:
-            raise AnsibleParserError(f"Unable to store Information: {to_native(err)}")
+            raise AnsibleParserError(f"Unable to store Information: {err}")
 
     def extract_information_from_instance_configs(self):
         """Process configuration information
@@ -792,7 +794,7 @@ class InventoryModule(BaseInventoryPlugin):
             network = ipaddress.ip_network(to_text(self.groupby[group_name].get('attribute')))
         except ValueError as err:
             raise AnsibleParserError(
-                f"Error while parsing network range {self.groupby[group_name].get('attribute')}: {to_native(err)}")
+                f"Error while parsing network range {self.groupby[group_name].get('attribute')}: {err}")
 
         for instance_name in self.inventory.hosts:
             if self.data['inventory'][instance_name].get('network_interfaces') is not None:
@@ -1120,6 +1122,6 @@ class InventoryModule(BaseInventoryPlugin):
             self.url = self.get_option('url')
         except Exception as err:
             raise AnsibleParserError(
-                f'All correct options required: {to_native(err)}')
+                f'All correct options required: {err}')
         # Call our internal helper to populate the dynamic inventory
         self._populate()

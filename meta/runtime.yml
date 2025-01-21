@@ -84,6 +84,10 @@ plugin_routing:
         removal_version: 2.0.0
         warning_text: Use the 'default' callback plugin with 'display_failed_stderr
           = yes' option.
+    yaml:
+      deprecation:
+        removal_version: 13.0.0
+        warning_text: The plugin has been superseded by the the option `result_format=yaml` in callback plugin ansible.builtin.default from ansible-core 2.13 onwards.
   connection:
     docker:
       redirect: community.docker.docker
@@ -101,140 +105,28 @@ plugin_routing:
     nios_next_network:
       redirect: infoblox.nios_modules.nios_next_network
   modules:
-    consul_acl:
-      tombstone:
-        removal_version: 10.0.0
-        warning_text: Use community.general.consul_token and/or community.general.consul_policy instead.
-    hipchat:
-      deprecation:
-        removal_version: 11.0.0
-        warning_text: The hipchat service has been discontinued and the self-hosted variant has been End of Life since 2020.
-    rax_cbs_attachments:
-      tombstone:
-        removal_version: 9.0.0
-        warning_text: This module relied on the deprecated package pyrax.
-    rax_cbs:
-      tombstone:
-        removal_version: 9.0.0
-        warning_text: This module relied on the deprecated package pyrax.
-    rax_cdb_database:
-      tombstone:
-        removal_version: 9.0.0
-        warning_text: This module relied on the deprecated package pyrax.
-    rax_cdb_user:
-      tombstone:
-        removal_version: 9.0.0
-        warning_text: This module relied on the deprecated package pyrax.
-    rax_cdb:
-      tombstone:
-        removal_version: 9.0.0
-        warning_text: This module relied on the deprecated package pyrax.
-    rax_clb_nodes:
-      tombstone:
-        removal_version: 9.0.0
-        warning_text: This module relied on the deprecated package pyrax.
-    rax_clb_ssl:
-      tombstone:
-        removal_version: 9.0.0
-        warning_text: This module relied on the deprecated package pyrax.
-    rax_clb:
-      tombstone:
-        removal_version: 9.0.0
-        warning_text: This module relied on the deprecated package pyrax.
-    rax_dns_record:
-      tombstone:
-        removal_version: 9.0.0
-        warning_text: This module relied on the deprecated package pyrax.
-    rax_dns:
-      tombstone:
-        removal_version: 9.0.0
-        warning_text: This module relied on the deprecated package pyrax.
-    rax_facts:
-      tombstone:
-        removal_version: 9.0.0
-        warning_text: This module relied on the deprecated package pyrax.
-    rax_files_objects:
-      tombstone:
-        removal_version: 9.0.0
-        warning_text: This module relied on the deprecated package pyrax.
-    rax_files:
-      tombstone:
-        removal_version: 9.0.0
-        warning_text: This module relied on the deprecated package pyrax.
-    rax_identity:
-      tombstone:
-        removal_version: 9.0.0
-        warning_text: This module relied on the deprecated package pyrax.
-    rax_keypair:
-      tombstone:
-        removal_version: 9.0.0
-        warning_text: This module relied on the deprecated package pyrax.
-    rax_meta:
-      tombstone:
-        removal_version: 9.0.0
-        warning_text: This module relied on the deprecated package pyrax.
-    rax_mon_alarm:
-      tombstone:
-        removal_version: 9.0.0
-        warning_text: This module relied on the deprecated package pyrax.
-    rax:
-      tombstone:
-        removal_version: 9.0.0
-        warning_text: This module relied on the deprecated package pyrax.
-    rax_mon_check:
-      tombstone:
-        removal_version: 9.0.0
-        warning_text: This module relied on the deprecated package pyrax.
-    rax_mon_entity:
-      tombstone:
-        removal_version: 9.0.0
-        warning_text: This module relied on the deprecated package pyrax.
-    rax_mon_notification_plan:
-      tombstone:
-        removal_version: 9.0.0
-        warning_text: This module relied on the deprecated package pyrax.
-    rax_mon_notification:
-      tombstone:
-        removal_version: 9.0.0
-        warning_text: This module relied on the deprecated package pyrax.
-    rax_network:
-      tombstone:
-        removal_version: 9.0.0
-        warning_text: This module relied on the deprecated package pyrax.
-    rax_queue:
-      tombstone:
-        removal_version: 9.0.0
-        warning_text: This module relied on the deprecated package pyrax.
-    rax_scaling_group:
-      tombstone:
-        removal_version: 9.0.0
-        warning_text: This module relied on the deprecated package pyrax.
-    rax_scaling_policy:
-      tombstone:
-        removal_version: 9.0.0
-        warning_text: This module relied on the deprecated package pyrax.
-    rhn_channel:
-      tombstone:
-        removal_version: 10.0.0
-        warning_text: RHN is EOL, please contact the community.general maintainers
-          if still using this; see the module documentation for more details.
-    rhn_register:
-      tombstone:
-        removal_version: 10.0.0
-        warning_text: RHN is EOL, please contact the community.general maintainers
-          if still using this; see the module documentation for more details.
-    stackdriver:
-      tombstone:
-        removal_version: 9.0.0
-        warning_text: This module relied on HTTPS APIs that do not exist anymore,
-          and any new development in the direction of providing an alternative should
-          happen in the context of the google.cloud collection.
     ali_instance_facts:
       tombstone:
         removal_version: 3.0.0
         warning_text: Use community.general.ali_instance_info instead.
+    atomic_container:
+      deprecation:
+        removal_version: 13.0.0
+        warning_text: Poject Atomic was sunset by the end of 2019.
+    atomic_host:
+      deprecation:
+        removal_version: 13.0.0
+        warning_text: Poject Atomic was sunset by the end of 2019.
+    atomic_image:
+      deprecation:
+        removal_version: 13.0.0
+        warning_text: Poject Atomic was sunset by the end of 2019.
     cisco_spark:
       redirect: community.general.cisco_webex
+    consul_acl:
+      tombstone:
+        removal_version: 10.0.0
+        warning_text: Use community.general.consul_token and/or community.general.consul_policy instead.
     docker_compose:
       redirect: community.docker.docker_compose
     docker_config:
@@ -289,6 +181,10 @@ plugin_routing:
       redirect: community.docker.docker_volume
     docker_volume_info:
       redirect: community.docker.docker_volume_info
+    facter:
+      deprecation:
+        removal_version: 12.0.0
+        warning_text: Use community.general.facter_facts instead.
     flowdock:
       tombstone:
         removal_version: 9.0.0
@@ -382,6 +278,10 @@ plugin_routing:
       redirect: community.hrobot.firewall
     hetzner_firewall_info:
       redirect: community.hrobot.firewall_info
+    hipchat:
+      deprecation:
+        removal_version: 11.0.0
+        warning_text: The hipchat service has been discontinued and the self-hosted variant has been End of Life since 2020.
     hpilo_facts:
       tombstone:
         removal_version: 3.0.0
@@ -715,10 +615,122 @@ plugin_routing:
       tombstone:
         removal_version: 3.0.0
         warning_text: Use community.general.python_requirements_info instead.
+    rax_cbs_attachments:
+      tombstone:
+        removal_version: 9.0.0
+        warning_text: This module relied on the deprecated package pyrax.
+    rax_cbs:
+      tombstone:
+        removal_version: 9.0.0
+        warning_text: This module relied on the deprecated package pyrax.
+    rax_cdb_database:
+      tombstone:
+        removal_version: 9.0.0
+        warning_text: This module relied on the deprecated package pyrax.
+    rax_cdb_user:
+      tombstone:
+        removal_version: 9.0.0
+        warning_text: This module relied on the deprecated package pyrax.
+    rax_cdb:
+      tombstone:
+        removal_version: 9.0.0
+        warning_text: This module relied on the deprecated package pyrax.
+    rax_clb_nodes:
+      tombstone:
+        removal_version: 9.0.0
+        warning_text: This module relied on the deprecated package pyrax.
+    rax_clb_ssl:
+      tombstone:
+        removal_version: 9.0.0
+        warning_text: This module relied on the deprecated package pyrax.
+    rax_clb:
+      tombstone:
+        removal_version: 9.0.0
+        warning_text: This module relied on the deprecated package pyrax.
+    rax_dns_record:
+      tombstone:
+        removal_version: 9.0.0
+        warning_text: This module relied on the deprecated package pyrax.
+    rax_dns:
+      tombstone:
+        removal_version: 9.0.0
+        warning_text: This module relied on the deprecated package pyrax.
+    rax_facts:
+      tombstone:
+        removal_version: 9.0.0
+        warning_text: This module relied on the deprecated package pyrax.
+    rax_files_objects:
+      tombstone:
+        removal_version: 9.0.0
+        warning_text: This module relied on the deprecated package pyrax.
+    rax_files:
+      tombstone:
+        removal_version: 9.0.0
+        warning_text: This module relied on the deprecated package pyrax.
+    rax_identity:
+      tombstone:
+        removal_version: 9.0.0
+        warning_text: This module relied on the deprecated package pyrax.
+    rax_keypair:
+      tombstone:
+        removal_version: 9.0.0
+        warning_text: This module relied on the deprecated package pyrax.
+    rax_meta:
+      tombstone:
+        removal_version: 9.0.0
+        warning_text: This module relied on the deprecated package pyrax.
+    rax_mon_alarm:
+      tombstone:
+        removal_version: 9.0.0
+        warning_text: This module relied on the deprecated package pyrax.
+    rax:
+      tombstone:
+        removal_version: 9.0.0
+        warning_text: This module relied on the deprecated package pyrax.
+    rax_mon_check:
+      tombstone:
+        removal_version: 9.0.0
+        warning_text: This module relied on the deprecated package pyrax.
+    rax_mon_entity:
+      tombstone:
+        removal_version: 9.0.0
+        warning_text: This module relied on the deprecated package pyrax.
+    rax_mon_notification_plan:
+      tombstone:
+        removal_version: 9.0.0
+        warning_text: This module relied on the deprecated package pyrax.
+    rax_mon_notification:
+      tombstone:
+        removal_version: 9.0.0
+        warning_text: This module relied on the deprecated package pyrax.
+    rax_network:
+      tombstone:
+        removal_version: 9.0.0
+        warning_text: This module relied on the deprecated package pyrax.
+    rax_queue:
+      tombstone:
+        removal_version: 9.0.0
+        warning_text: This module relied on the deprecated package pyrax.
+    rax_scaling_group:
+      tombstone:
+        removal_version: 9.0.0
+        warning_text: This module relied on the deprecated package pyrax.
+    rax_scaling_policy:
+      tombstone:
+        removal_version: 9.0.0
+        warning_text: This module relied on the deprecated package pyrax.
     redfish_facts:
       tombstone:
         removal_version: 3.0.0
         warning_text: Use community.general.redfish_info instead.
+    rhn_channel:
+      tombstone:
+        removal_version: 10.0.0
+        warning_text: RHN is EOL.
+    rhn_register:
+      tombstone:
+        removal_version: 10.0.0
+        warning_text: RHN is EOL.
     sapcar_extract:
       redirect: community.sap_libs.sapcar_extract
     sap_task_list_execute:
@@ -751,6 +763,26 @@ plugin_routing:
       tombstone:
         removal_version: 3.0.0
         warning_text: Use community.general.scaleway_volume_info instead.
+    sensu_check:
+      deprecation:
+        removal_version: 13.0.0
+        warning_text: Sensu Core and Sensu Enterprise products have been End of Life since 2019/20.
+    sensu_client:
+      deprecation:
+        removal_version: 13.0.0
+        warning_text: Sensu Core and Sensu Enterprise products have been End of Life since 2019/20.
+    sensu_handler:
+      deprecation:
+        removal_version: 13.0.0
+        warning_text: Sensu Core and Sensu Enterprise products have been End of Life since 2019/20.
+    sensu_silence:
+      deprecation:
+        removal_version: 13.0.0
+        warning_text: Sensu Core and Sensu Enterprise products have been End of Life since 2019/20.
+    sensu_subscription:
+      deprecation:
+        removal_version: 13.0.0
+        warning_text: Sensu Core and Sensu Enterprise products have been End of Life since 2019/20.
     sf_account_manager:
       tombstone:
         removal_version: 2.0.0
@@ -775,6 +807,12 @@ plugin_routing:
       tombstone:
         removal_version: 3.0.0
         warning_text: Use community.general.smartos_image_info instead.
+    stackdriver:
+      tombstone:
+        removal_version: 9.0.0
+        warning_text: This module relied on HTTPS APIs that do not exist anymore,
+          and any new development in the direction of providing an alternative should
+          happen in the context of the google.cloud collection.
     vertica_facts:
       tombstone:
         removal_version: 3.0.0
@@ -809,11 +847,6 @@ plugin_routing:
         removal_version: 3.0.0
         warning_text: Use community.general.xenserver_guest_info instead.
   doc_fragments:
-    rackspace:
-      tombstone:
-        removal_version: 9.0.0
-        warning_text: This doc fragment was used by rax modules, that relied on the deprecated
-          package pyrax.
     _gcp:
       redirect: community.google._gcp
     docker:
@@ -828,11 +861,16 @@ plugin_routing:
       redirect: infoblox.nios_modules.nios
     postgresql:
       redirect: community.postgresql.postgresql
-  module_utils:
-    rax:
+    purestorage:
+      deprecation:
+        removal_version: 12.0.0
+        warning_text: The modules for purestorage were removed in community.general 3.0.0, this document fragment was left behind.
+    rackspace:
       tombstone:
         removal_version: 9.0.0
-        warning_text: This module util relied on the deprecated package pyrax.
+        warning_text: This doc fragment was used by rax modules, that relied on the deprecated
+          package pyrax.
+  module_utils:
     docker.common:
       redirect: community.docker.common
     docker.swarm:
@@ -851,6 +889,14 @@ plugin_routing:
       redirect: infoblox.nios_modules.api
     postgresql:
       redirect: community.postgresql.postgresql
+    pure:
+      deprecation:
+        removal_version: 12.0.0
+        warning_text: The modules for purestorage were removed in community.general 3.0.0, this module util was left behind.
+    rax:
+      tombstone:
+        removal_version: 9.0.0
+        warning_text: This module util relied on the deprecated package pyrax.
     remote_management.dellemc.dellemc_idrac:
       redirect: dellemc.openmanage.dellemc_idrac
     remote_management.dellemc.ome:

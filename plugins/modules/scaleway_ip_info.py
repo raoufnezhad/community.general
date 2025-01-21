@@ -10,9 +10,9 @@ __metaclass__ = type
 
 DOCUMENTATION = r"""
 module: scaleway_ip_info
-short_description: Gather information about the Scaleway ips available
+short_description: Gather information about the Scaleway IPs available
 description:
-  - Gather information about the Scaleway ips available.
+  - Gather information about the Scaleway IPs available.
 author:
   - "Yanis Guenane (@Spredzy)"
   - "Remy Leone (@remyleone)"
@@ -39,7 +39,7 @@ options:
 """
 
 EXAMPLES = r"""
-- name: Gather Scaleway ips information
+- name: Gather Scaleway IPs information
   community.general.scaleway_ip_info:
     region: par1
   register: result
@@ -52,7 +52,7 @@ RETURN = r"""
 scaleway_ip_info:
   description:
     - Response from Scaleway API.
-    - 'For more details please refer to: U(https://developers.scaleway.com/en/products/instance/api/)'
+    - 'For more details please refer to U(https://developers.scaleway.com/en/products/instance/api/).'
   returned: success
   type: list
   elements: dict

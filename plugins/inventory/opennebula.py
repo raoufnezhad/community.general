@@ -3,9 +3,8 @@
 # GNU General Public License v3.0+ (see LICENSES/GPL-3.0-or-later.txt or https://www.gnu.org/licenses/gpl-3.0.txt)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from __future__ import (absolute_import, division, print_function)
+from __future__ import annotations
 
-__metaclass__ = type
 
 DOCUMENTATION = r'''
     name: opennebula
@@ -96,7 +95,6 @@ except ImportError:
 
 from ansible.errors import AnsibleError
 from ansible.plugins.inventory import BaseInventoryPlugin, Constructable
-from ansible.module_utils.common.text.converters import to_native
 
 from ansible_collections.community.general.plugins.plugin_utils.unsafe import make_unsafe
 
@@ -172,7 +170,7 @@ class InventoryModule(BaseInventoryPlugin, Constructable):
         try:
             vm_pool = one_client.vmpool.infoextended(-2, -1, -1, 3)
         except Exception as e:
-            raise AnsibleError(f"Something happened during XML-RPC call: {to_native(e)}")
+            raise AnsibleError(f"Something happened during XML-RPC call: {e}")
 
         return vm_pool
 

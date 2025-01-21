@@ -3,122 +3,122 @@
 # GNU General Public License v3.0+ (see LICENSES/GPL-3.0-or-later.txt or https://www.gnu.org/licenses/gpl-3.0.txt)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from __future__ import (absolute_import, division, print_function)
-__metaclass__ = type
+from __future__ import annotations
 
-DOCUMENTATION = '''
-    author: Victor Martinez (@v1v)  <VictorMartinezRubio@gmail.com>
-    name: opentelemetry
-    type: notification
-    short_description: Create distributed traces with OpenTelemetry
-    version_added: 3.7.0
+DOCUMENTATION = r"""
+author: Victor Martinez (@v1v)  <VictorMartinezRubio@gmail.com>
+name: opentelemetry
+type: notification
+short_description: Create distributed traces with OpenTelemetry
+version_added: 3.7.0
+description:
+  - This callback creates distributed traces for each Ansible task with OpenTelemetry.
+  - You can configure the OpenTelemetry exporter and SDK with environment variables.
+  - See U(https://opentelemetry-python.readthedocs.io/en/latest/exporter/otlp/otlp.html).
+  - See
+    U(https://opentelemetry-python.readthedocs.io/en/latest/sdk/environment_variables.html#opentelemetry-sdk-environment-variables).
+options:
+  hide_task_arguments:
+    default: false
+    type: bool
     description:
-      - This callback creates distributed traces for each Ansible task with OpenTelemetry.
-      - You can configure the OpenTelemetry exporter and SDK with environment variables.
-      - See U(https://opentelemetry-python.readthedocs.io/en/latest/exporter/otlp/otlp.html).
-      - See U(https://opentelemetry-python.readthedocs.io/en/latest/sdk/environment_variables.html#opentelemetry-sdk-environment-variables).
-    options:
-      hide_task_arguments:
-        default: false
-        type: bool
-        description:
-          - Hide the arguments for a task.
-        env:
-          - name: ANSIBLE_OPENTELEMETRY_HIDE_TASK_ARGUMENTS
-        ini:
-          - section: callback_opentelemetry
-            key: hide_task_arguments
-            version_added: 5.3.0
-      enable_from_environment:
-        type: str
-        description:
-          - Whether to enable this callback only if the given environment variable exists and it is set to V(true).
-          - This is handy when you use Configuration as Code and want to send distributed traces
-            if running in the CI rather when running Ansible locally.
-          - For such, it evaluates the given O(enable_from_environment) value as environment variable
-            and if set to true this plugin will be enabled.
-        env:
-          - name: ANSIBLE_OPENTELEMETRY_ENABLE_FROM_ENVIRONMENT
-        ini:
-          - section: callback_opentelemetry
-            key: enable_from_environment
-            version_added: 5.3.0
-        version_added: 3.8.0
-      otel_service_name:
-        default: ansible
-        type: str
-        description:
-          - The service name resource attribute.
-        env:
-          - name: OTEL_SERVICE_NAME
-        ini:
-          - section: callback_opentelemetry
-            key: otel_service_name
-            version_added: 5.3.0
-      traceparent:
-        default: None
-        type: str
-        description:
-          - The L(W3C Trace Context header traceparent,https://www.w3.org/TR/trace-context-1/#traceparent-header).
-        env:
-          - name: TRACEPARENT
-      disable_logs:
-        default: false
-        type: bool
-        description:
-          - Disable sending logs.
-        env:
-          - name: ANSIBLE_OPENTELEMETRY_DISABLE_LOGS
-        ini:
-          - section: callback_opentelemetry
-            key: disable_logs
-        version_added: 5.8.0
-      disable_attributes_in_logs:
-        default: false
-        type: bool
-        description:
-          - Disable populating span attributes to the logs.
-        env:
-          - name: ANSIBLE_OPENTELEMETRY_DISABLE_ATTRIBUTES_IN_LOGS
-        ini:
-          - section: callback_opentelemetry
-            key: disable_attributes_in_logs
-        version_added: 7.1.0
-      store_spans_in_file:
-        type: str
-        description:
-          -  It stores the exported spans in the given file
-        env:
-          - name: ANSIBLE_OPENTELEMETRY_STORE_SPANS_IN_FILE
-        ini:
-          - section: callback_opentelemetry
-            key: store_spans_in_file
-        version_added: 9.0.0
-      otel_exporter_otlp_traces_protocol:
-        type: str
-        description:
-          - E(OTEL_EXPORTER_OTLP_TRACES_PROTOCOL) represents the the transport protocol for spans.
-          - See
-            U(https://opentelemetry-python.readthedocs.io/en/latest/sdk/environment_variables.html#envvar-OTEL_EXPORTER_OTLP_TRACES_PROTOCOL).
-        default: grpc
-        choices:
-          - grpc
-          - http/protobuf
-        env:
-          - name: OTEL_EXPORTER_OTLP_TRACES_PROTOCOL
-        ini:
-          - section: callback_opentelemetry
-            key: otel_exporter_otlp_traces_protocol
-        version_added: 9.0.0
-    requirements:
-      - opentelemetry-api (Python library)
-      - opentelemetry-exporter-otlp (Python library)
-      - opentelemetry-sdk (Python library)
-'''
+      - Hide the arguments for a task.
+    env:
+      - name: ANSIBLE_OPENTELEMETRY_HIDE_TASK_ARGUMENTS
+    ini:
+      - section: callback_opentelemetry
+        key: hide_task_arguments
+        version_added: 5.3.0
+  enable_from_environment:
+    type: str
+    description:
+      - Whether to enable this callback only if the given environment variable exists and it is set to V(true).
+      - This is handy when you use Configuration as Code and want to send distributed traces if running in the CI rather when
+        running Ansible locally.
+      - For such, it evaluates the given O(enable_from_environment) value as environment variable and if set to true this
+        plugin will be enabled.
+    env:
+      - name: ANSIBLE_OPENTELEMETRY_ENABLE_FROM_ENVIRONMENT
+    ini:
+      - section: callback_opentelemetry
+        key: enable_from_environment
+        version_added: 5.3.0
+    version_added: 3.8.0
+  otel_service_name:
+    default: ansible
+    type: str
+    description:
+      - The service name resource attribute.
+    env:
+      - name: OTEL_SERVICE_NAME
+    ini:
+      - section: callback_opentelemetry
+        key: otel_service_name
+        version_added: 5.3.0
+  traceparent:
+    default: None
+    type: str
+    description:
+      - The L(W3C Trace Context header traceparent,https://www.w3.org/TR/trace-context-1/#traceparent-header).
+    env:
+      - name: TRACEPARENT
+  disable_logs:
+    default: false
+    type: bool
+    description:
+      - Disable sending logs.
+    env:
+      - name: ANSIBLE_OPENTELEMETRY_DISABLE_LOGS
+    ini:
+      - section: callback_opentelemetry
+        key: disable_logs
+    version_added: 5.8.0
+  disable_attributes_in_logs:
+    default: false
+    type: bool
+    description:
+      - Disable populating span attributes to the logs.
+    env:
+      - name: ANSIBLE_OPENTELEMETRY_DISABLE_ATTRIBUTES_IN_LOGS
+    ini:
+      - section: callback_opentelemetry
+        key: disable_attributes_in_logs
+    version_added: 7.1.0
+  store_spans_in_file:
+    type: str
+    description:
+      - It stores the exported spans in the given file.
+    env:
+      - name: ANSIBLE_OPENTELEMETRY_STORE_SPANS_IN_FILE
+    ini:
+      - section: callback_opentelemetry
+        key: store_spans_in_file
+    version_added: 9.0.0
+  otel_exporter_otlp_traces_protocol:
+    type: str
+    description:
+      - E(OTEL_EXPORTER_OTLP_TRACES_PROTOCOL) represents the the transport protocol for spans.
+      - See
+        U(https://opentelemetry-python.readthedocs.io/en/latest/sdk/environment_variables.html#envvar-OTEL_EXPORTER_OTLP_TRACES_PROTOCOL).
+    default: grpc
+    choices:
+      - grpc
+      - http/protobuf
+    env:
+      - name: OTEL_EXPORTER_OTLP_TRACES_PROTOCOL
+    ini:
+      - section: callback_opentelemetry
+        key: otel_exporter_otlp_traces_protocol
+    version_added: 9.0.0
+requirements:
+  - opentelemetry-api (Python library)
+  - opentelemetry-exporter-otlp (Python library)
+  - opentelemetry-sdk (Python library)
+"""
 
 
-EXAMPLES = '''
-examples: |
+EXAMPLES = r"""
+examples: |-
   Enable the plugin in ansible.cfg:
     [defaults]
     callbacks_enabled = community.general.opentelemetry
@@ -130,15 +130,14 @@ examples: |
     export OTEL_EXPORTER_OTLP_HEADERS="authorization=Bearer your_otel_token"
     export OTEL_SERVICE_NAME=your_service_name
     export ANSIBLE_OPENTELEMETRY_ENABLED=true
-'''
+"""
 
 import getpass
 import json
 import os
 import socket
-import sys
-import time
 import uuid
+from time import time_ns
 
 from collections import OrderedDict
 from os.path import basename
@@ -164,29 +163,10 @@ try:
     from opentelemetry.sdk.trace.export.in_memory_span_exporter import (
         InMemorySpanExporter
     )
-    # Support for opentelemetry-api <= 1.12
-    try:
-        from opentelemetry.util._time import _time_ns
-    except ImportError as imp_exc:
-        OTEL_LIBRARY_TIME_NS_ERROR = imp_exc
-    else:
-        OTEL_LIBRARY_TIME_NS_ERROR = None
-
 except ImportError as imp_exc:
     OTEL_LIBRARY_IMPORT_ERROR = imp_exc
-    OTEL_LIBRARY_TIME_NS_ERROR = imp_exc
 else:
     OTEL_LIBRARY_IMPORT_ERROR = None
-
-
-if sys.version_info >= (3, 7):
-    time_ns = time.time_ns
-elif not OTEL_LIBRARY_TIME_NS_ERROR:
-    time_ns = _time_ns
-else:
-    def time_ns():
-        # Support versions older than 3.7 with opentelemetry-api > 1.12
-        return int(time.time() * 1e9)
 
 
 class TaskData:
