@@ -4,45 +4,44 @@
 # GNU General Public License v3.0+ (see LICENSES/GPL-3.0-or-later.txt or https://www.gnu.org/licenses/gpl-3.0.txt)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from __future__ import (absolute_import, division, print_function)
-__metaclass__ = type
+from __future__ import annotations
 
-DOCUMENTATION = '''
-    author: Unknown (!UNKNOWN)
-    name: jabber
-    type: notification
-    short_description: post task events to a jabber server
-    description:
-      - The chatty part of ChatOps with a Hipchat server as a target.
-      - This callback plugin sends status updates to a HipChat channel during playbook execution.
-    requirements:
-      - xmpp (Python library U(https://github.com/ArchipelProject/xmpppy))
-    options:
-      server:
-        description: connection info to jabber server
-        type: str
-        required: true
-        env:
-          - name: JABBER_SERV
-      user:
-        description: Jabber user to authenticate as
-        type: str
-        required: true
-        env:
-          - name: JABBER_USER
-      password:
-        description: Password for the user to the jabber server
-        type: str
-        required: true
-        env:
-          - name: JABBER_PASS
-      to:
-        description: chat identifier that will receive the message
-        type: str
-        required: true
-        env:
-          - name: JABBER_TO
-'''
+DOCUMENTATION = r"""
+author: Unknown (!UNKNOWN)
+name: jabber
+type: notification
+short_description: post task events to a Jabber server
+description:
+  - The chatty part of ChatOps with a Hipchat server as a target.
+  - This callback plugin sends status updates to a HipChat channel during playbook execution.
+requirements:
+  - xmpp (Python library U(https://github.com/ArchipelProject/xmpppy))
+options:
+  server:
+    description: Connection info to Jabber server.
+    type: str
+    required: true
+    env:
+      - name: JABBER_SERV
+  user:
+    description: Jabber user to authenticate as.
+    type: str
+    required: true
+    env:
+      - name: JABBER_USER
+  password:
+    description: Password for the user to the Jabber server.
+    type: str
+    required: true
+    env:
+      - name: JABBER_PASS
+  to:
+    description: Chat identifier that will receive the message.
+    type: str
+    required: true
+    env:
+      - name: JABBER_TO
+"""
 
 import os
 

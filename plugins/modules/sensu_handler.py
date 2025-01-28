@@ -14,7 +14,11 @@ author: "David Moreau Simard (@dmsimard)"
 short_description: Manages Sensu handler configuration
 description:
   - Manages Sensu handler configuration.
-  - 'For more information, refer to the Sensu documentation: U(https://sensuapp.org/docs/latest/reference/handlers.html)'
+  - 'For more information, refer to the L(Sensu documentation, https://sensuapp.org/docs/latest/reference/handlers.html).'
+deprecated:
+  removed_in: 13.0.0
+  why: Sensu Core and Sensu Enterprise products have been End of Life since 2019/20.
+  alternative: Use Sensu Go and its accompanying collection C(sensu.sensu_go).
 extends_documentation_fragment:
   - community.general.attributes
 attributes:
@@ -80,24 +84,25 @@ options:
     type: str
     description:
       - The handler command to be executed.
-      - The event data is passed to the process via STDIN.
-      - 'NOTE: the command attribute is only required for Pipe handlers (i.e. handlers configured with "type": "pipe").'
+      - The event data is passed to the process using STDIN.
+      - 'NOTE: the O(command) attribute is only required for Pipe handlers (that is, handlers configured with O(type=pipe)).'
   socket:
     type: dict
     description:
       - The socket definition scope, used to configure the TCP/UDP handler socket.
-      - 'NOTE: the socket attribute is only required for TCP/UDP handlers (i.e. handlers configured with "type": "tcp" or "type": "udp").'
+      - 'NOTE: the O(socket) attribute is only required for TCP/UDP handlers (that is, handlers configured with O(type=tcp)
+        or O(type=udp)).'
   pipe:
     type: dict
     description:
       - The pipe definition scope, used to configure the Sensu transport pipe.
-      - 'NOTE: the pipe attribute is only required for Transport handlers (i.e. handlers configured with "type": "transport").'
+      - 'NOTE: the O(pipe) attribute is only required for Transport handlers (that is, handlers configured with O(type=transport)).'
   handlers:
     type: list
     elements: str
     description:
       - An array of Sensu event handlers (names) to use for events using the handler set.
-      - 'NOTE: the handlers attribute is only required for handler sets (that is, handlers configured with O(type=set)).'
+      - 'NOTE: the O(handlers) attribute is only required for handler sets (that is, handlers configured with O(type=set)).'
 """
 
 EXAMPLES = r"""
@@ -217,7 +222,7 @@ def main():
                     module.fail_json(
                         msg=msg.format(path=path, exception=str(e)))
         else:
-            # Idempotency: it's okay if the file doesn't exist
+            # Idempotency: it is okay if the file doesn't exist
             msg = '{path} already does not exist'.format(path=path)
             module.exit_json(msg=msg)
 
@@ -236,7 +241,7 @@ def main():
     try:
         current_config = json.load(open(path, 'r'))
     except (IOError, ValueError):
-        # File either doesn't exist or it's invalid JSON
+        # File either doesn't exist or it is invalid JSON
         pass
 
     if current_config is not None and current_config == config:

@@ -16,12 +16,13 @@ short_description: Allows administration of Keycloak components using Keycloak A
 version_added: 10.0.0
 
 description:
-  - This module allows the administration of Keycloak components using the Keycloak REST API. It requires access to the REST API using OpenID Connect;
-    the user connecting and the realm being used must have the requisite access rights. In a default Keycloak installation, C(admin-cli) and an
-    C(admin) user would work, as would a separate realm definition with the scope tailored to your needs and a user having the expected roles.
-  - The names of module options are snake_cased versions of the camelCase ones found in the Keycloak API and its documentation at
-    U(https://www.keycloak.org/docs-api/latest/rest-api/index.html).
-    Aliases are provided so camelCased versions can be used as well.
+  - This module allows the administration of Keycloak components using the Keycloak REST API. It requires access to the REST
+    API using OpenID Connect; the user connecting and the realm being used must have the requisite access rights. In a default
+    Keycloak installation, C(admin-cli) and an C(admin) user would work, as would a separate realm definition with the scope
+    tailored to your needs and a user having the expected roles.
+  - The names of module options are snake_cased versions of the camelCase ones found in the Keycloak API and its documentation
+    at U(https://www.keycloak.org/docs-api/latest/rest-api/index.html). Aliases are provided so camelCased versions can be
+    used as well.
 attributes:
   check_mode:
     support: full
@@ -155,7 +156,9 @@ def main():
     module = AnsibleModule(argument_spec=argument_spec,
                            supports_check_mode=True,
                            required_one_of=([['token', 'auth_realm', 'auth_username', 'auth_password']]),
-                           required_together=([['auth_realm', 'auth_username', 'auth_password']]))
+                           required_together=([['auth_realm', 'auth_username', 'auth_password']]),
+                           required_by={'refresh_token': 'auth_realm'},
+                           )
 
     result = dict(changed=False, msg='', end_state={}, diff=dict(before={}, after={}))
 

@@ -12,7 +12,7 @@ DOCUMENTATION = r"""
 module: stacki_host
 short_description: Add or remove host to stacki front-end
 description:
-  - Use this module to add or remove hosts to a stacki front-end via API.
+  - Use this module to add or remove hosts to a stacki front-end using API.
   - Information on stacki can be found at U(https://github.com/StackIQ/stacki).
 extends_documentation_fragment:
   - community.general.attributes
@@ -29,12 +29,14 @@ options:
     type: str
   stacki_user:
     description:
-      - Username for authenticating with Stacki API, but if not specified, the environment variable E(stacki_user) is used instead.
+      - Username for authenticating with Stacki API, but if not specified, the environment variable E(stacki_user) is used
+        instead.
     required: true
     type: str
   stacki_password:
     description:
-      - Password for authenticating with Stacki API, but if not specified, the environment variable E(stacki_password) is used instead.
+      - Password for authenticating with Stacki API, but if not specified, the environment variable E(stacki_password) is
+        used instead.
     required: true
     type: str
   stacki_endpoint:
@@ -119,7 +121,7 @@ EXAMPLES = r"""
 
 RETURN = r"""
 changed:
-  description: Response to whether or not the api call completed successfully.
+  description: Response to whether or not the API call completed successfully.
   returned: always
   type: bool
   sample: true

@@ -37,8 +37,8 @@ options:
 
   domain:
     description:
-      - Domain to work with. Can be the domain name (for example V(mydomain.com)) or the numeric ID of the domain in DNS Made Easy
-        (for example V(839989)) for faster resolution.
+      - Domain to work with. Can be the domain name (for example V(mydomain.com)) or the numeric ID of the domain in DNS Made
+        Easy (for example V(839989)) for faster resolution.
     required: true
     type: str
 
@@ -65,7 +65,7 @@ options:
       - 'Record value. HTTPRED: <redirection URL>, MX: <priority> <target name>, NS: <name server>, PTR: <target name>, SRV:
         <priority> <weight> <port> <target name>, TXT: <text value>".'
       - If record_value is not specified; no changes will be made and the record will be returned in 'result' (in other words,
-        this module can be used to fetch a record's current id, type, and ttl).
+        this module can be used to fetch a record's current ID, type, and ttl).
     type: str
 
   record_ttl:
@@ -128,7 +128,7 @@ options:
 
   contactList:
     description:
-      - Name or id of the contact list that the monitor will notify.
+      - Name or ID of the contact list that the monitor will notify.
       - The default V('') means the Account Owner.
     type: str
 
@@ -190,9 +190,9 @@ options:
 notes:
   - The DNS Made Easy service requires that machines interacting with the API have the proper time and timezone set. Be sure
     you are within a few seconds of actual time by using NTP.
-  - This module returns record(s) and monitor(s) in the "result" element when O(state=present). These values can
+  - This module returns record(s) and monitor(s) in the RV(ignore:result) element when O(state=present). These values can
     be be registered and used in your playbooks.
-  - Only A records can have a monitor or failover.
+  - Only A records can have a O(monitor) or O(failover).
   - To add failover, the O(failover), O(autoFailover), O(port), O(protocol), O(ip1), and O(ip2) options are required.
   - To add monitor, the O(monitor), O(port), O(protocol), O(maxEmails), O(systemDescription), and O(ip1) options are required.
   - The monitor and the failover will share O(port), O(protocol), and O(ip1) options.
@@ -486,7 +486,7 @@ class DME2(object):
         return self.query(self.record_url, 'GET')['data']
 
     def _instMap(self, type):
-        # @TODO cache this call so it's executed only once per ansible execution
+        # @TODO cache this call so it is executed only once per ansible execution
         map = {}
         results = {}
 

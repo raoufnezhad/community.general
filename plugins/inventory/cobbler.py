@@ -3,8 +3,7 @@
 # Copyright (c) 2020 Ansible Project
 # GNU General Public License v3.0+ (see LICENSES/GPL-3.0-or-later.txt or https://www.gnu.org/licenses/gpl-3.0.txt)
 # SPDX-License-Identifier: GPL-3.0-or-later
-from __future__ import (absolute_import, division, print_function)
-__metaclass__ = type
+from __future__ import annotations
 
 DOCUMENTATION = '''
     author: Orion Poplawski (@opoplawski)
@@ -20,7 +19,7 @@ DOCUMENTATION = '''
         - inventory_cache
     options:
       plugin:
-        description: The name of this plugin, it should always be set to V(community.general.cobbler) for this plugin to recognize it as it's own.
+        description: The name of this plugin, it should always be set to V(community.general.cobbler) for this plugin to recognize it as its own.
         type: string
         required: true
         choices: [ 'cobbler', 'community.general.cobbler' ]
@@ -118,7 +117,6 @@ password: secure
 import socket
 
 from ansible.errors import AnsibleError
-from ansible.module_utils.common.text.converters import to_text
 from ansible.plugins.inventory import BaseInventoryPlugin, Cacheable, to_safe_group_name
 from ansible.module_utils.six import text_type
 
@@ -377,7 +375,7 @@ class InventoryModule(BaseInventoryPlugin, Cacheable):
                 try:
                     self.inventory.set_variable(hostname, 'cobbler', make_unsafe(host))
                 except ValueError as e:
-                    self.display.warning(f"Could not set host info for {hostname}: {to_text(e)}")
+                    self.display.warning(f"Could not set host info for {hostname}: {e}")
 
         if self.get_option('want_ip_addresses'):
             self.inventory.set_variable(self.group, 'cobbler_ipv4_addresses', make_unsafe(ip_addresses))

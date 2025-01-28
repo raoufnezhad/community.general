@@ -8,25 +8,24 @@
 # GNU General Public License v3.0+ (see LICENSES/GPL-3.0-or-later.txt or https://www.gnu.org/licenses/gpl-3.0.txt)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from __future__ import (absolute_import, division, print_function)
-__metaclass__ = type
+from __future__ import annotations
 
-DOCUMENTATION = '''
-    author: Ansible Core Team
-    name: zone
-    short_description: Run tasks in a zone instance
+DOCUMENTATION = r"""
+author: Ansible Core Team
+name: zone
+short_description: Run tasks in a zone instance
+description:
+  - Run commands or put/fetch files to an existing zone.
+options:
+  remote_addr:
     description:
-        - Run commands or put/fetch files to an existing zone.
-    options:
-      remote_addr:
-        description:
-            - Zone identifier
-        type: string
-        default: inventory_hostname
-        vars:
-            - name: ansible_host
-            - name: ansible_zone_host
-'''
+      - Zone identifier.
+    type: string
+    default: inventory_hostname
+    vars:
+      - name: ansible_host
+      - name: ansible_zone_host
+"""
 
 import os
 import os.path
@@ -140,7 +139,7 @@ class Connection(ConnectionBase):
             exist in any given chroot.  So for now we're choosing "/" instead.
             This also happens to be the former default.
 
-            Can revisit using $HOME instead if it's a problem
+            Can revisit using $HOME instead if it is a problem
         """
         if not remote_path.startswith(os.path.sep):
             remote_path = os.path.join(os.path.sep, remote_path)

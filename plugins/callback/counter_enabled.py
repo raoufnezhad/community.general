@@ -6,23 +6,22 @@
     Counter enabled Ansible callback plugin (See DOCUMENTATION for more information)
 '''
 
-from __future__ import (absolute_import, division, print_function)
-__metaclass__ = type
+from __future__ import annotations
 
-DOCUMENTATION = '''
-    author: Unknown (!UNKNOWN)
-    name: counter_enabled
-    type: stdout
-    short_description: adds counters to the output items (tasks and hosts/task)
-    description:
-      - Use this callback when you need a kind of progress bar on a large environments.
-      - You will know how many tasks has the playbook to run, and which one is actually running.
-      - You will know how many hosts may run a task, and which of them is actually running.
-    extends_documentation_fragment:
-      - default_callback
-    requirements:
-      - set as stdout callback in C(ansible.cfg) (C(stdout_callback = counter_enabled))
-'''
+DOCUMENTATION = r"""
+author: Unknown (!UNKNOWN)
+name: counter_enabled
+type: stdout
+short_description: adds counters to the output items (tasks and hosts/task)
+description:
+  - Use this callback when you need a kind of progress bar on a large environments.
+  - You will know how many tasks has the playbook to run, and which one is actually running.
+  - You will know how many hosts may run a task, and which of them is actually running.
+extends_documentation_fragment:
+  - default_callback
+requirements:
+  - set as stdout callback in C(ansible.cfg) (C(stdout_callback = counter_enabled))
+"""
 
 from ansible import constants as C
 from ansible.plugins.callback import CallbackBase
@@ -92,16 +91,16 @@ class CallbackModule(CallbackBase):
             stat = stats.summarize(host)
 
             self._display.display(
-                f"{hostcolor(host, stat)} : {colorize(u'ok', stat['ok'], C.COLOR_OK)} {colorize(u'changed', stat['changed'], C.COLOR_CHANGED)} "
-                f"{colorize(u'unreachable', stat['unreachable'], C.COLOR_UNREACHABLE)} {colorize(u'failed', stat['failures'], C.COLOR_ERROR)} "
-                f"{colorize(u'rescued', stat['rescued'], C.COLOR_OK)} {colorize(u'ignored', stat['ignored'], C.COLOR_WARN)}",
+                f"{hostcolor(host, stat)} : {colorize('ok', stat['ok'], C.COLOR_OK)} {colorize('changed', stat['changed'], C.COLOR_CHANGED)} "
+                f"{colorize('unreachable', stat['unreachable'], C.COLOR_UNREACHABLE)} {colorize('failed', stat['failures'], C.COLOR_ERROR)} "
+                f"{colorize('rescued', stat['rescued'], C.COLOR_OK)} {colorize('ignored', stat['ignored'], C.COLOR_WARN)}",
                 screen_only=True
             )
 
             self._display.display(
-                f"{hostcolor(host, stat, False)} : {colorize(u'ok', stat['ok'], None)} {colorize(u'changed', stat['changed'], None)} "
-                f"{colorize(u'unreachable', stat['unreachable'], None)} {colorize(u'failed', stat['failures'], None)} "
-                f"{colorize(u'rescued', stat['rescued'], None)} {colorize(u'ignored', stat['ignored'], None)}",
+                f"{hostcolor(host, stat, False)} : {colorize('ok', stat['ok'], None)} {colorize('changed', stat['changed'], None)} "
+                f"{colorize('unreachable', stat['unreachable'], None)} {colorize('failed', stat['failures'], None)} "
+                f"{colorize('rescued', stat['rescued'], None)} {colorize('ignored', stat['ignored'], None)}",
                 log_only=True
             )
 

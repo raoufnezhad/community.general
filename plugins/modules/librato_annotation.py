@@ -11,9 +11,10 @@ __metaclass__ = type
 
 DOCUMENTATION = r"""
 module: librato_annotation
-short_description: Create an annotation in librato
+short_description: Create an annotation in Librato
 description:
-  - Create an annotation event on the given annotation stream :name. If the annotation stream does not exist, it will be created automatically.
+  - Create an annotation event on the given annotation stream :name. If the annotation stream does not exist, it will be created
+    automatically.
 author: "Seth Edwards (@Sedward)"
 requirements: []
 extends_documentation_fragment:
@@ -32,7 +33,7 @@ options:
   api_key:
     type: str
     description:
-      - Librato account api key.
+      - Librato account API key.
     required: true
   name:
     type: str
@@ -49,13 +50,15 @@ options:
   source:
     type: str
     description:
-      - A string which describes the originating source of an annotation when that annotation is tracked across multiple members of a population.
+      - A string which describes the originating source of an annotation when that annotation is tracked across multiple members
+        of a population.
     required: false
   description:
     type: str
     description:
       - The description contains extra metadata about a particular annotation.
-      - The description should contain specifics on the individual annotation for example V(Deployed 9b562b2 shipped new feature foo!).
+      - The description should contain specifics on the individual annotation for example V(Deployed 9b562b2 shipped new feature
+        foo!).
     required: false
   start_time:
     type: int

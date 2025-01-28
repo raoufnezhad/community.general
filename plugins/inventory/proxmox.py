@@ -3,9 +3,8 @@
 # Copyright (c) 2018 Ansible Project
 # GNU General Public License v3.0+ (see LICENSES/GPL-3.0-or-later.txt or https://www.gnu.org/licenses/gpl-3.0.txt)
 # SPDX-License-Identifier: GPL-3.0-or-later
-from __future__ import (absolute_import, division, print_function)
+from __future__ import annotations
 
-__metaclass__ = type
 
 DOCUMENTATION = '''
     name: proxmox
@@ -25,7 +24,7 @@ DOCUMENTATION = '''
         - inventory_cache
     options:
       plugin:
-        description: The name of this plugin, it should always be set to V(community.general.proxmox) for this plugin to recognize it as it's own.
+        description: The name of this plugin, it should always be set to V(community.general.proxmox) for this plugin to recognize it as its own.
         required: true
         choices: ['community.general.proxmox']
         type: str
@@ -138,6 +137,7 @@ DOCUMENTATION = '''
 '''
 
 EXAMPLES = '''
+---
 # Minimal example which will not gather additional facts for QEMU/LXC guests
 # By not specifying a URL the plugin will attempt to connect to the controller host on port 8006
 # my.proxmox.yml
@@ -148,6 +148,7 @@ password: secure
 # an example where this is set to `false` and where ansible_host is set with `compose`.
 want_proxmox_nodes_ansible_host: true
 
+---
 # Instead of login with password, proxmox supports api token authentication since release 6.2.
 plugin: community.general.proxmox
 user: ci@pve
@@ -164,6 +165,7 @@ token_secret: !vault |
           32643131386134396336623736393634373936356332623632306561356361323737313663633633
           6231313333666361656537343562333337323030623732323833
 
+---
 # More complete example demonstrating the use of 'want_facts' and the constructed options
 # Note that using facts returned by 'want_facts' in constructed options requires 'want_facts=true'
 # my.proxmox.yml
@@ -186,6 +188,7 @@ compose:
 # an example where this is set to `false` and where ansible_host is set with `compose`.
 want_proxmox_nodes_ansible_host: true
 
+---
 # Using the inventory to allow ansible to connect via the first IP address of the VM / Container
 # (Default is connection by name of QEMU/LXC guests)
 # Note: my_inv_var demonstrates how to add a string variable to every host used by the inventory.
@@ -203,6 +206,7 @@ compose:
   my_inv_var_2: >
     "my_var_2_value"
 
+---
 # Specify the url, user and password using templating
 # my.proxmox.yml
 plugin: community.general.proxmox
@@ -222,7 +226,6 @@ from ansible.module_utils.common._collections_compat import MutableMapping
 
 from ansible.errors import AnsibleError
 from ansible.plugins.inventory import BaseInventoryPlugin, Constructable, Cacheable
-from ansible.module_utils.common.text.converters import to_native
 from ansible.module_utils.six import string_types
 from ansible.module_utils.six.moves.urllib.parse import urlencode
 from ansible.utils.display import Display
@@ -404,7 +407,7 @@ class InventoryModule(BaseInventoryPlugin, Constructable, Cacheable):
             if "error" in ifaces:
                 if "class" in ifaces["error"]:
                     # This happens on Windows, even though qemu agent is running, the IP address
-                    # cannot be fetched, as it's unsupported, also a command disabled can happen.
+                    # cannot be fetched, as it is unsupported, also a command disabled can happen.
                     errorClass = ifaces["error"]["class"]
                     if errorClass in ["Unsupported"]:
                         self.display.v("Retrieving network interfaces from guest agents on windows with older qemu-guest-agents is not supported")
@@ -523,7 +526,7 @@ class InventoryModule(BaseInventoryPlugin, Constructable, Cacheable):
                 if not self._compose(host_filter, properties):
                     return False
             except Exception as e:  # pylint: disable=broad-except
-                message = f"Could not evaluate host filter {host_filter} for host {name} - {to_native(e)}"
+                message = f"Could not evaluate host filter {host_filter} for host {name} - {e}"
                 if self.strict:
                     raise AnsibleError(message)
                 display.warning(message)

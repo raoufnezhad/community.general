@@ -28,7 +28,8 @@ attributes:
   check_mode:
     support: full
     details:
-      - In order to check the availability of packages, the catalog cache under C(/var/opt/csw/pkgutil) may be refreshed even in check mode.
+      - In order to check the availability of packages, the catalog cache under C(/var/opt/csw/pkgutil) may be refreshed even
+        in check mode.
   diff_mode:
     support: none
 options:
@@ -55,7 +56,7 @@ options:
     choices: [absent, installed, latest, present, removed]
   update_catalog:
     description:
-      - If you always want to refresh your catalog from the mirror, even when it's not stale, set this to V(true).
+      - If you always want to refresh your catalog from the mirror, even when it is not stale, set this to V(true).
     type: bool
     default: false
   force:

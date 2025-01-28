@@ -34,7 +34,7 @@ options:
       - V(started), synonym for V(running).
       - V(stopped), shutdown a zone.
       - V(absent), destroy the zone.
-      - V(configured), configure the ready so that it's to be attached.
+      - V(configured), configure the ready so that it is to be attached.
       - V(attached), attach a zone, but do not boot it.
       - V(detached), shutdown and detach a zone.
     type: str
@@ -64,8 +64,9 @@ options:
     type: str
   config:
     description:
-      - The C(zonecfg) configuration commands for this zone. See zonecfg(1M) for the valid options and syntax. Typically this is a list of options
-        separated by semi-colons or new lines, for example V(set auto-boot=true;add net;set physical=bge0;set address=10.1.1.1;end).
+      - The C(zonecfg) configuration commands for this zone. See zonecfg(1M) for the valid options and syntax. Typically this
+        is a list of options separated by semi-colons or new lines, for example V(set auto-boot=true;add net;set physical=bge0;set
+        address=10.1.1.1;end).
     type: str
     default: ''
   create_options:
@@ -75,14 +76,14 @@ options:
     default: ''
   install_options:
     description:
-      - Extra options to the zoneadm(1M) install command. To automate Solaris 11 zone creation, use this to specify the profile XML file, for example
-        O(install_options=-c sc_profile.xml).
+      - Extra options to the zoneadm(1M) install command. To automate Solaris 11 zone creation, use this to specify the profile
+        XML file, for example O(install_options=-c sc_profile.xml).
     type: str
     default: ''
   attach_options:
     description:
-      - Extra options to the zoneadm attach command. For example, this can be used to specify whether a minimum or full update of packages is
-        required and if any packages need to be deleted. For valid values, see zoneadm(1M).
+      - Extra options to the zoneadm attach command. For example, this can be used to specify whether a minimum or full update
+        of packages is required and if any packages need to be deleted. For valid values, see zoneadm(1M).
     type: str
     default: ''
   timeout:
@@ -245,24 +246,22 @@ class Zone(object):
 
         open('%s/root/noautoshutdown' % self.path, 'w').close()
 
-        node = open('%s/root/etc/nodename' % self.path, 'w')
-        node.write(self.name)
-        node.close()
+        with open('%s/root/etc/nodename' % self.path, 'w') as node:
+            node.write(self.name)
 
-        id = open('%s/root/etc/.sysIDtool.state' % self.path, 'w')
-        id.write('1       # System previously configured?\n')
-        id.write('1       # Bootparams succeeded?\n')
-        id.write('1       # System is on a network?\n')
-        id.write('1       # Extended network information gathered?\n')
-        id.write('0       # Autobinder succeeded?\n')
-        id.write('1       # Network has subnets?\n')
-        id.write('1       # root password prompted for?\n')
-        id.write('1       # locale and term prompted for?\n')
-        id.write('1       # security policy in place\n')
-        id.write('1       # NFSv4 domain configured\n')
-        id.write('0       # Auto Registration Configured\n')
-        id.write('vt100')
-        id.close()
+        with open('%s/root/etc/.sysIDtool.state' % self.path, 'w') as id:
+            id.write('1       # System previously configured?\n')
+            id.write('1       # Bootparams succeeded?\n')
+            id.write('1       # System is on a network?\n')
+            id.write('1       # Extended network information gathered?\n')
+            id.write('0       # Autobinder succeeded?\n')
+            id.write('1       # Network has subnets?\n')
+            id.write('1       # root password prompted for?\n')
+            id.write('1       # locale and term prompted for?\n')
+            id.write('1       # security policy in place\n')
+            id.write('1       # NFSv4 domain configured\n')
+            id.write('0       # Auto Registration Configured\n')
+            id.write('vt100')
 
     def configure_ssh_keys(self):
         rsa_key_file = '%s/root/etc/ssh/ssh_host_rsa_key' % self.path
@@ -283,9 +282,8 @@ class Zone(object):
     def configure_password(self):
         shadow = '%s/root/etc/shadow' % self.path
         if self.root_password:
-            f = open(shadow, 'r')
-            lines = f.readlines()
-            f.close()
+            with open(shadow, 'r') as f:
+                lines = f.readlines()
 
             for i in range(0, len(lines)):
                 fields = lines[i].split(':')
@@ -293,10 +291,9 @@ class Zone(object):
                     fields[1] = self.root_password
                     lines[i] = ':'.join(fields)
 
-            f = open(shadow, 'w')
-            for line in lines:
-                f.write(line)
-            f.close()
+            with open(shadow, 'w') as f:
+                for line in lines:
+                    f.write(line)
 
     def boot(self):
         if not self.module.check_mode:

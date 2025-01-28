@@ -15,8 +15,12 @@ short_description: Manage Sensu checks
 description:
   - Manage the checks that should be run on a machine by I(Sensu).
   - Most options do not have a default and will not be added to the check definition unless specified.
-  - All defaults except O(path), O(state), O(backup) and O(metric) are not managed by this module,
-    they are simply specified for your convenience.
+  - All defaults except O(path), O(state), O(backup) and O(metric) are not managed by this module, they are simply specified
+    for your convenience.
+deprecated:
+  removed_in: 13.0.0
+  why: Sensu Core and Sensu Enterprise products have been End of Life since 2019/20.
+  alternative: Use Sensu Go and its accompanying collection C(sensu.sensu_go).
 extends_documentation_fragment:
   - community.general.attributes
 attributes:
@@ -40,14 +44,14 @@ options:
   path:
     type: str
     description:
-      - Path to the json file of the check to be added/removed.
+      - Path to the JSON file of the check to be added/removed.
       - Will be created if it does not exist (unless O(state=absent)).
       - The parent folders need to exist when O(state=present), otherwise an error will be thrown.
     default: /etc/sensu/conf.d/checks.json
   backup:
     description:
-      - Create a backup file (if yes), including the timestamp information so
-        you can get the original file back if you somehow clobbered it incorrectly.
+      - Create a backup file (if yes), including the timestamp information so you can get the original file back if you somehow
+        clobbered it incorrectly.
     type: bool
     default: false
   command:
@@ -110,7 +114,7 @@ options:
   publish:
     description:
       - Whether the check should be scheduled at all.
-      - You can still issue it via the sensu API.
+      - You can still issue it using the sensu API.
       - Default is V(false).
     type: bool
   occurrences:
@@ -124,8 +128,7 @@ options:
       - Number of seconds handlers should wait before taking second action.
   aggregate:
     description:
-      - Classifies the check as an aggregate check,
-        making it available via the aggregate API.
+      - Classifies the check as an aggregate check, making it available using the aggregate API.
       - Default is V(false).
     type: bool
   low_flap_threshold:
@@ -140,11 +143,11 @@ options:
     type: dict
     description:
       - A hash/dictionary of custom parameters for mixing to the configuration.
-      - You can't rewrite others module parameters using this.
+      - You cannot rewrite other module parameters using this.
   source:
     type: str
     description:
-      - The check source, used to create a JIT Sensu client for an external resource (e.g. a network switch).
+      - The check source, used to create a JIT Sensu client for an external resource (for example a network switch).
 author: "Anders Ingemann (@andsens)"
 """
 

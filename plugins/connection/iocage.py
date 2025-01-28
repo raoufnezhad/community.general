@@ -7,31 +7,30 @@
 # GNU General Public License v3.0+ (see LICENSES/GPL-3.0-or-later.txt or https://www.gnu.org/licenses/gpl-3.0.txt)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from __future__ import (absolute_import, division, print_function)
-__metaclass__ = type
+from __future__ import annotations
 
-DOCUMENTATION = '''
-    author: Stephan Lohse (!UNKNOWN) <dev-github@ploek.org>
-    name: iocage
-    short_description: Run tasks in iocage jails
+DOCUMENTATION = r"""
+author: Stephan Lohse (!UNKNOWN) <dev-github@ploek.org>
+name: iocage
+short_description: Run tasks in iocage jails
+description:
+  - Run commands or put/fetch files to an existing iocage jail.
+options:
+  remote_addr:
     description:
-        - Run commands or put/fetch files to an existing iocage jail
-    options:
-      remote_addr:
-        description:
-            - Path to the jail
-        type: string
-        vars:
-            - name: ansible_host
-            - name: ansible_iocage_host
-      remote_user:
-        description:
-            - User to execute as inside the jail
-        type: string
-        vars:
-            - name: ansible_user
-            - name: ansible_iocage_user
-'''
+      - Path to the jail.
+    type: string
+    vars:
+      - name: ansible_host
+      - name: ansible_iocage_host
+  remote_user:
+    description:
+      - User to execute as inside the jail.
+    type: string
+    vars:
+      - name: ansible_user
+      - name: ansible_iocage_user
+"""
 
 import subprocess
 

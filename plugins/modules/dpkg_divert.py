@@ -19,7 +19,7 @@ description:
   - A diversion is for C(dpkg) the knowledge that only a given package (or the local administrator) is allowed to install
     a file at a given location. Other packages shipping their own version of this file will be forced to O(divert) it, that
     is to install it at another location. It allows one to keep changes in a file provided by a debian package by preventing
-    its overwrite at package upgrade.
+    it being overwritten on package upgrade.
   - This module manages diversions of debian packages files using the C(dpkg-divert) commandline tool. It can either create
     or remove a diversion for a given file, but also update an existing diversion to modify its O(holder) and/or its O(divert)
     location.
@@ -33,8 +33,8 @@ attributes:
 options:
   path:
     description:
-      - The original and absolute path of the file to be diverted or undiverted. This path is unique, in other words it is not possible
-        to get two diversions for the same O(path).
+      - The original and absolute path of the file to be diverted or undiverted. This path is unique, in other words it is
+        not possible to get two diversions for the same O(path).
     required: true
     type: path
   state:
@@ -69,8 +69,8 @@ options:
     default: false
   force:
     description:
-      - When O(rename=true) and O(force=true), renaming is performed even if the target of the renaming exists, in other words the existing
-        contents of the file at this location will be lost.
+      - When O(rename=true) and O(force=true), renaming is performed even if the target of the renaming exists, in other words
+        the existing contents of the file at this location will be lost.
       - This parameter is ignored when O(rename=false).
     type: bool
     default: false
@@ -132,13 +132,7 @@ diversion:
     state:
       description: The state of the diversion.
       type: str
-  sample:
-    {
-      "divert": "/etc/foobarrc.distrib",
-      "holder": "LOCAL",
-      "path": "/etc/foobarrc",
-      "state": "present"
-    }
+  sample: {"divert": "/etc/foobarrc.distrib", "holder": "LOCAL", "path": "/etc/foobarrc", "state": "present"}
 """
 
 

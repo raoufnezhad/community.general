@@ -4,22 +4,21 @@
 # GNU General Public License v3.0+ (see LICENSES/GPL-3.0-or-later.txt or https://www.gnu.org/licenses/gpl-3.0.txt)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from __future__ import (absolute_import, division, print_function)
-__metaclass__ = type
+from __future__ import annotations
 
-DOCUMENTATION = '''
+DOCUMENTATION = r"""
 name: dense
 type: stdout
 short_description: minimal stdout output
 extends_documentation_fragment:
-- default_callback
+  - default_callback
 description:
-- When in verbose mode it will act the same as the default callback.
+  - When in verbose mode it will act the same as the default callback.
 author:
-- Dag Wieers (@dagwieers)
+  - Dag Wieers (@dagwieers)
 requirements:
-- set as stdout in configuration
-'''
+  - set as stdout in configuration
+"""
 
 HAS_OD = False
 try:
@@ -243,7 +242,7 @@ class CallbackModule(CallbackModule_default):
 
     def _handle_exceptions(self, result):
         if 'exception' in result:
-            # Remove the exception from the result so it's not shown every time
+            # Remove the exception from the result so it is not shown every time
             del result['exception']
 
             if self._display.verbosity == 1:
@@ -483,9 +482,9 @@ class CallbackModule(CallbackModule_default):
         for h in hosts:
             t = stats.summarize(h)
             self._display.display(
-                f"{hostcolor(h, t)} : {colorize(u'ok', t['ok'], C.COLOR_OK)} {colorize(u'changed', t['changed'], C.COLOR_CHANGED)} "
-                f"{colorize(u'unreachable', t['unreachable'], C.COLOR_UNREACHABLE)} {colorize(u'failed', t['failures'], C.COLOR_ERROR)} "
-                f"{colorize(u'rescued', t['rescued'], C.COLOR_OK)} {colorize(u'ignored', t['ignored'], C.COLOR_WARN)}",
+                f"{hostcolor(h, t)} : {colorize('ok', t['ok'], C.COLOR_OK)} {colorize('changed', t['changed'], C.COLOR_CHANGED)} "
+                f"{colorize('unreachable', t['unreachable'], C.COLOR_UNREACHABLE)} {colorize('failed', t['failures'], C.COLOR_ERROR)} "
+                f"{colorize('rescued', t['rescued'], C.COLOR_OK)} {colorize('ignored', t['ignored'], C.COLOR_WARN)}",
                 screen_only=True
             )
 

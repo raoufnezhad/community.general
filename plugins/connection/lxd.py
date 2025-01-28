@@ -4,51 +4,50 @@
 # GNU General Public License v3.0+ (see LICENSES/GPL-3.0-or-later.txt or https://www.gnu.org/licenses/gpl-3.0.txt)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from __future__ import (absolute_import, division, print_function)
-__metaclass__ = type
+from __future__ import annotations
 
-DOCUMENTATION = '''
-    author: Matt Clay (@mattclay) <matt@mystile.com>
-    name: lxd
-    short_description: Run tasks in LXD instances via C(lxc) CLI
+DOCUMENTATION = r"""
+author: Matt Clay (@mattclay) <matt@mystile.com>
+name: lxd
+short_description: Run tasks in LXD instances using C(lxc) CLI
+description:
+  - Run commands or put/fetch files to an existing instance using C(lxc) CLI.
+options:
+  remote_addr:
     description:
-        - Run commands or put/fetch files to an existing instance using C(lxc) CLI.
-    options:
-      remote_addr:
-        description:
-            - Instance (container/VM) identifier.
-            - Since community.general 8.0.0, a FQDN can be provided; in that case, the first component (the part before C(.))
-              is used as the instance identifier.
-        type: string
-        default: inventory_hostname
-        vars:
-            - name: inventory_hostname
-            - name: ansible_host
-            - name: ansible_lxd_host
-      executable:
-        description:
-            - Shell to use for execution inside instance.
-        type: string
-        default: /bin/sh
-        vars:
-            - name: ansible_executable
-            - name: ansible_lxd_executable
-      remote:
-        description:
-            - Name of the LXD remote to use.
-        type: string
-        default: local
-        vars:
-            - name: ansible_lxd_remote
-        version_added: 2.0.0
-      project:
-        description:
-            - Name of the LXD project to use.
-        type: string
-        vars:
-            - name: ansible_lxd_project
-        version_added: 2.0.0
-'''
+      - Instance (container/VM) identifier.
+      - Since community.general 8.0.0, a FQDN can be provided; in that case, the first component (the part before C(.)) is
+        used as the instance identifier.
+    type: string
+    default: inventory_hostname
+    vars:
+      - name: inventory_hostname
+      - name: ansible_host
+      - name: ansible_lxd_host
+  executable:
+    description:
+      - Shell to use for execution inside instance.
+    type: string
+    default: /bin/sh
+    vars:
+      - name: ansible_executable
+      - name: ansible_lxd_executable
+  remote:
+    description:
+      - Name of the LXD remote to use.
+    type: string
+    default: local
+    vars:
+      - name: ansible_lxd_remote
+    version_added: 2.0.0
+  project:
+    description:
+      - Name of the LXD project to use.
+    type: string
+    vars:
+      - name: ansible_lxd_project
+    version_added: 2.0.0
+"""
 
 import os
 from subprocess import Popen, PIPE
@@ -86,7 +85,7 @@ class Connection(ConnectionBase):
         super(Connection, self)._connect()
 
         if not self._connected:
-            self._display.vvv(u"ESTABLISH LXD CONNECTION FOR USER: root", host=self._host())
+            self._display.vvv("ESTABLISH LXD CONNECTION FOR USER: root", host=self._host())
             self._connected = True
 
     def exec_command(self, cmd, in_data=None, sudoable=True):

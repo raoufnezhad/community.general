@@ -18,8 +18,8 @@ version_added: 9.3.0
 
 description:
   - This module allows you to get Keycloak realm keys metadata using the Keycloak REST API.
-  - The names of module options are snake_cased versions of the camelCase ones found in the Keycloak API and its documentation at
-    U(https://www.keycloak.org/docs-api/latest/rest-api/index.html).
+  - The names of module options are snake_cased versions of the camelCase ones found in the Keycloak API and its documentation
+    at U(https://www.keycloak.org/docs-api/latest/rest-api/index.html).
 attributes:
   action_group:
     version_added: 10.2.0
@@ -105,7 +105,8 @@ def main():
         argument_spec=argument_spec,
         supports_check_mode=True,
         required_one_of=([["token", "auth_realm", "auth_username", "auth_password"]]),
-        required_together=([["auth_realm", "auth_username", "auth_password"]]),
+        required_together=([['auth_realm', 'auth_username', 'auth_password']]),
+        required_by={'refresh_token': 'auth_realm'},
     )
 
     result = dict(changed=False, msg="", keys_metadata="")

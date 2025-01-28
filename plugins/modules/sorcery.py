@@ -17,7 +17,8 @@ description:
   - Manages "spells" on Source Mage GNU/Linux using I(sorcery) toolchain.
 author: "Vlad Glagolev (@vaygr)"
 notes:
-  - When all three components are selected, the update goes by the sequence -- Sorcery -> Grimoire(s) -> Spell(s); you cannot override it.
+  - When all three components are selected, the update goes by the sequence -- Sorcery -> Grimoire(s) -> Spell(s); you cannot
+    override it.
   - Grimoire handling is supported since community.general 7.3.0.
 requirements:
   - bash
@@ -60,8 +61,8 @@ options:
 
   depends:
     description:
-      - Comma-separated list of _optional_ dependencies to build a spell (or make sure it is built) with; use V(+)/V(-) in front of dependency
-        to turn it on/off (V(+) is optional though).
+      - Comma-separated list of _optional_ dependencies to build a spell (or make sure it is built) with; use V(+)/V(-) in
+        front of dependency to turn it on/off (V(+) is optional though).
       - This option is ignored if O(name) parameter is equal to V(*) or contains more than one spell.
       - Providers must be supplied in the form recognized by Sorcery, for example 'V(openssl(SSL\))'.
     type: str
@@ -459,15 +460,11 @@ def match_depends(module):
 
     if depends_new:
         try:
-            try:
-                fl = open(sorcery_depends, 'a')
-
+            with open(sorcery_depends, 'a') as fl:
                 for k in depends_new:
                     fl.write("%s:%s:%s:optional::\n" % (spell, k, depends[k]))
-            except IOError:
-                module.fail_json(msg="I/O error on the depends file")
-        finally:
-            fl.close()
+        except IOError:
+            module.fail_json(msg="I/O error on the depends file")
 
         depends_ok = False
 

@@ -24,7 +24,7 @@ attributes:
 options:
   instance_id:
     description:
-      - Instance Id of the virtual instance to perform action option.
+      - Instance ID of the virtual instance to perform action option.
     type: str
   hostname:
     description:
@@ -138,15 +138,15 @@ options:
     type: int
   public_vlan:
     description:
-      - VLAN by its Id to be assigned to the public NIC.
+      - VLAN by its ID to be assigned to the public NIC.
     type: str
   private_vlan:
     description:
-      - VLAN by its Id to be assigned to the private NIC.
+      - VLAN by its ID to be assigned to the private NIC.
     type: str
   ssh_keys:
     description:
-      - List of ssh keys by their Id to be assigned to a virtual instance.
+      - List of ssh keys by their ID to be assigned to a virtual instance.
     type: list
     elements: str
     default: []

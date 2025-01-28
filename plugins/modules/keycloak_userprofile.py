@@ -14,11 +14,11 @@ module: keycloak_userprofile
 short_description: Allows managing Keycloak User Profiles
 
 description:
-  - This module allows you to create, update, or delete Keycloak User Profiles using the Keycloak API. You can also customize the "Unmanaged Attributes"
-    with it.
-  - The names of module options are snake_cased versions of the camelCase ones found in the Keycloak API and its documentation at
-    U(https://www.keycloak.org/docs-api/24.0.5/rest-api/index.html).
-    For compatibility reasons, the module also accepts the camelCase versions of the options.
+  - This module allows you to create, update, or delete Keycloak User Profiles using the Keycloak API. You can also customize
+    the "Unmanaged Attributes" with it.
+  - The names of module options are snake_cased versions of the camelCase ones found in the Keycloak API and its documentation
+    at U(https://www.keycloak.org/docs-api/24.0.5/rest-api/index.html). For compatibility reasons, the module also accepts
+    the camelCase versions of the options.
 version_added: "9.4.0"
 
 attributes:
@@ -33,7 +33,8 @@ options:
   state:
     description:
       - State of the User Profile provider.
-      - On V(present), the User Profile provider will be created if it does not yet exist, or updated with the parameters you provide.
+      - On V(present), the User Profile provider will be created if it does not yet exist, or updated with the parameters
+        you provide.
       - On V(absent), the User Profile provider will be removed if it exists.
     default: 'present'
     type: str
@@ -264,8 +265,8 @@ options:
               - ADMIN_VIEW
 
 notes:
-  - Currently, only a single V(declarative-user-profile) entry is supported for O(provider_id) (design of the Keyckoak API). However, there can
-    be multiple O(config.kc_user_profile_config[].attributes[]) entries.
+  - Currently, only a single V(declarative-user-profile) entry is supported for O(provider_id) (design of the Keyckoak API).
+    However, there can be multiple O(config.kc_user_profile_config[].attributes[]) entries.
 extends_documentation_fragment:
   - community.general.keycloak
   - community.general.keycloak.actiongroup_keycloak
@@ -424,7 +425,7 @@ def remove_null_values(data):
         # Recursively remove null values from lists
         return [remove_null_values(item) for item in data if item is not None]
     else:
-        # Return the data if it's neither a dictionary nor a list
+        # Return the data if it is neither a dictionary nor a list
         return data
 
 
@@ -436,7 +437,7 @@ def camel_recursive(data):
         # Apply camelCase conversion to each item in the list
         return [camel_recursive(item) for item in data]
     else:
-        # Return the data as is if it's not a dict or list
+        # Return the data as-is if it is not a dict or list
         return data
 
 
@@ -533,7 +534,9 @@ def main():
     module = AnsibleModule(argument_spec=argument_spec,
                            supports_check_mode=True,
                            required_one_of=([['token', 'auth_realm', 'auth_username', 'auth_password']]),
-                           required_together=([['auth_realm', 'auth_username', 'auth_password']]))
+                           required_together=([['auth_realm', 'auth_username', 'auth_password']]),
+                           required_by={'refresh_token': 'auth_realm'},
+                           )
 
     # Initialize the result object. Only "changed" seems to have special
     # meaning for Ansible.

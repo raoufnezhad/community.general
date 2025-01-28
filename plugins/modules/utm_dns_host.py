@@ -14,10 +14,10 @@ module: utm_dns_host
 author:
   - Johannes Brunswicker (@MatrixCrawler)
 
-short_description: Create, update or destroy dns entry in Sophos UTM
+short_description: Create, update or destroy DNS entry in Sophos UTM
 
 description:
-  - Create, update or destroy a dns entry in SOPHOS UTM.
+  - Create, update or destroy a DNS entry in SOPHOS UTM.
   - This module needs to have the REST Ability of the UTM to be activated.
 attributes:
   check_mode:
@@ -44,16 +44,16 @@ options:
   comment:
     type: str
     description:
-      - An optional comment to add to the dns host object.
+      - An optional comment to add to the DNS host object.
     default: ''
   hostname:
     type: str
     description:
-      - The hostname for the dns host object.
+      - The hostname for the DNS host object.
   interface:
     type: str
     description:
-      - The reference name of the interface to use. If not provided the default interface will be used.
+      - The reference name of the interface to use. If not provided the default interface is used.
     default: ''
   resolved:
     description:
@@ -68,7 +68,7 @@ options:
   timeout:
     type: int
     description:
-      - The timeout for the utm to resolve the ip address for the hostname again.
+      - The timeout for the UTM to resolve the IP address for the hostname again.
     default: 0
 
 extends_documentation_fragment:

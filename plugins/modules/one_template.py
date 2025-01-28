@@ -25,7 +25,8 @@ attributes:
   check_mode:
     support: partial
     details:
-      - Note that check mode always returns C(changed=true) for existing templates, even if the template would not actually change.
+      - Note that check mode always returns C(changed=true) for existing templates, even if the template would not actually
+        change.
   diff_mode:
     support: none
 
@@ -36,8 +37,8 @@ options:
     type: int
   name:
     description:
-      - A O(name) of the template you would like to manage.
-        If a template with the given name does not exist it will be created, otherwise it will be managed by this module.
+      - A O(name) of the template you would like to manage. If a template with the given name does not exist it will be created,
+        otherwise it will be managed by this module.
     type: str
   template:
     description:
@@ -50,6 +51,16 @@ options:
     choices: ["present", "absent"]
     default: present
     type: str
+  filter:
+    description:
+      - V(user_primary_group) - Resources belonging to the user's primary group.
+      - V(user) - Resources belonging to the user.
+      - V(all) - All resources.
+      - V(user_groups) - Resources belonging to the user and any of his groups.
+    choices: [user_primary_group, user, all, user_groups]
+    default: user
+    type: str
+    version_added: 10.3.0
 
 extends_documentation_fragment:
   - community.general.opennebula
@@ -110,7 +121,7 @@ EXAMPLES = r"""
 
 RETURN = r"""
 id:
-  description: Template id.
+  description: Template ID.
   type: int
   returned: when O(state=present)
   sample: 153
@@ -124,7 +135,7 @@ template:
   type: dict
   returned: when O(state=present)
 group_id:
-  description: Template's group id.
+  description: Template's group ID.
   type: int
   returned: when O(state=present)
   sample: 1
@@ -134,7 +145,7 @@ group_name:
   returned: when O(state=present)
   sample: one-users
 owner_id:
-  description: Template's owner id.
+  description: Template's owner ID.
   type: int
   returned: when O(state=present)
   sample: 143
@@ -156,6 +167,7 @@ class TemplateModule(OpenNebulaModule):
             name=dict(type='str', required=False),
             state=dict(type='str', choices=['present', 'absent'], default='present'),
             template=dict(type='str', required=False),
+            filter=dict(type='str', required=False, choices=['user_primary_group', 'user', 'all', 'user_groups'], default='user'),
         )
 
         mutually_exclusive = [
@@ -181,10 +193,11 @@ class TemplateModule(OpenNebulaModule):
         name = params.get('name')
         desired_state = params.get('state')
         template_data = params.get('template')
+        filter = params.get('filter')
 
         self.result = {}
 
-        template = self.get_template_instance(id, name)
+        template = self.get_template_instance(id, name, filter)
         needs_creation = False
         if not template and desired_state != 'absent':
             if id:
@@ -196,16 +209,19 @@ class TemplateModule(OpenNebulaModule):
             self.result = self.delete_template(template)
         else:
             if needs_creation:
-                self.result = self.create_template(name, template_data)
+                self.result = self.create_template(name, template_data, filter)
             else:
-                self.result = self.update_template(template, template_data)
+                self.result = self.update_template(template, template_data, filter)
 
         self.exit()
 
-    def get_template(self, predicate):
-        # -3 means "Resources belonging to the user"
+    def get_template(self, predicate, filter):
+        # filter was included, for discussions see:
+        # Issue: https://github.com/ansible-collections/community.general/issues/9278
+        # PR: https://github.com/ansible-collections/community.general/pull/9547
         # the other two parameters are used for pagination, -1 for both essentially means "return all"
-        pool = self.one.templatepool.info(-3, -1, -1)
+        filter_values = {'user_primary_group': -4, 'user': -3, 'all': -2, 'user_groups': -1}
+        pool = self.one.templatepool.info(filter_values[filter], -1, -1)
 
         for template in pool.VMTEMPLATE:
             if predicate(template):
@@ -213,17 +229,17 @@ class TemplateModule(OpenNebulaModule):
 
         return None
 
-    def get_template_by_id(self, template_id):
-        return self.get_template(lambda template: (template.ID == template_id))
+    def get_template_by_id(self, template_id, filter):
+        return self.get_template(lambda template: (template.ID == template_id), filter)
 
-    def get_template_by_name(self, name):
-        return self.get_template(lambda template: (template.NAME == name))
+    def get_template_by_name(self, name, filter):
+        return self.get_template(lambda template: (template.NAME == name), filter)
 
-    def get_template_instance(self, requested_id, requested_name):
+    def get_template_instance(self, requested_id, requested_name, filter):
         if requested_id:
-            return self.get_template_by_id(requested_id)
+            return self.get_template_by_id(requested_id, filter)
         else:
-            return self.get_template_by_name(requested_name)
+            return self.get_template_by_name(requested_name, filter)
 
     def get_template_info(self, template):
         info = {
@@ -238,21 +254,21 @@ class TemplateModule(OpenNebulaModule):
 
         return info
 
-    def create_template(self, name, template_data):
+    def create_template(self, name, template_data, filter):
         if not self.module.check_mode:
             self.one.template.allocate("NAME = \"" + name + "\"\n" + template_data)
 
-        result = self.get_template_info(self.get_template_by_name(name))
+        result = self.get_template_info(self.get_template_by_name(name, filter))
         result['changed'] = True
 
         return result
 
-    def update_template(self, template, template_data):
+    def update_template(self, template, template_data, filter):
         if not self.module.check_mode:
             # 0 = replace the whole template
             self.one.template.update(template.ID, template_data, 0)
 
-        result = self.get_template_info(self.get_template_by_id(template.ID))
+        result = self.get_template_info(self.get_template_by_id(template.ID, filter))
         if self.module.check_mode:
             # Unfortunately it is not easy to detect if the template would have changed, therefore always report a change here.
             result['changed'] = True

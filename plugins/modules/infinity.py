@@ -67,7 +67,7 @@ options:
     type: str
   network_location:
     description:
-      - The parent network id for a given network.
+      - The parent network ID for a given network.
     type: int
     default: -1
   network_type:
@@ -105,17 +105,18 @@ EXAMPLES = r"""
 
 RETURN = r"""
 network_id:
-  description: Id for a given network.
+  description: ID for a given network.
   returned: success
   type: str
   sample: '1501'
 ip_info:
-  description: When reserve next available ip address from a network, the ip address info ) is returned.
+  description: When reserve next available IP address from a network, the IP address info is returned.
   returned: success
   type: str
   sample: '{"address": "192.168.10.3", "hostname": "", "FQDN": "", "domainname": "", "id": 3229}'
 network_info:
-  description: when reserving a LAN network from a Infinity supernet by providing network_size, the information about the reserved network is returned.
+  description: When reserving a LAN network from a Infinity supernet by providing network_size, the information about the
+    reserved network is returned.
   returned: success
   type: str
   sample: {
